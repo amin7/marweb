@@ -43,6 +43,8 @@ bool CManageSDControl::setStateSDcontrol(tStateSDcontrol mode)
                     m_MarlinReleaseTimeout = millis() + CHANGE_NOTICE_TIMEOUT;
                     setESPuse(false);
                     break;
+                default:
+                    break;
             }
       break;
     default:
@@ -97,11 +99,13 @@ bool CManageSDControl::isMarlinUseSPI() const
   if (isESPuse()) {
     return false;
   }
-  switch (getStateSDcontrol()) {
-    case sdStateMarlin:
-      return true;
-    case sdStateEsp:
-      return false;
+    switch (getStateSDcontrol()) {
+        case sdStateMarlin:
+            return true;
+        case sdStateEsp:
+            return false;
+        default:
+            break;
   }
   return millis() < m_MarlinReleaseTimeout;
 }

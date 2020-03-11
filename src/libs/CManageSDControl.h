@@ -32,8 +32,8 @@ private:
     virtual void returnBus()=0;
   
 protected:
-  volatile long m_MarlinReleaseTimeout = 0;
-  long m_ESPReleaseTimeout = 0;
+    volatile unsigned long m_MarlinReleaseTimeout = 0;
+    unsigned long m_ESPReleaseTimeout = 0;
   tStateSDcontrol stateSDcontrol = sdStateAuto;
 
 public:

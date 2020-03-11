@@ -27,11 +27,11 @@ ostream& operator<<(ostream &stream, const IPAddress &ip)
 
 void LED_ON()
 {
-    digitalWrite(BUILTIN_LED, LOW);
+    digitalWrite(LED_BUILTIN, LOW);
 }
 void LED_OFF()
 {
-    digitalWrite(BUILTIN_LED, HIGH);
+    digitalWrite(LED_BUILTIN, HIGH);
 }
 void blink()
 {
@@ -293,7 +293,7 @@ bool isExtMach(const std::string &name, const std::string &ext)
 std::string to_string(uint32_t ul)
 {
     char tt[20];
-    snprintf(tt, sizeof(tt) - 1, "%lu", ul);
+    snprintf(tt, sizeof(tt) - 1, "%ul", ul);
     tt[sizeof(tt) - 1] = 0;
     return std::string(tt);
 }

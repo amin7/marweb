@@ -39,9 +39,9 @@ constexpr auto DEF_WIFI_MODE = WIFI_AP;
 constexpr auto DEF_SSID_NAME = "";
 constexpr auto DEF_WIFI_PWD = "12345678";
 
-constexpr char *ota_update_path = "/firmware";
-constexpr char *ota_username = "admin";
-constexpr char *ota_password = "1234";
+constexpr auto ota_update_path = "/firmware";
+constexpr auto ota_username = "admin";
+constexpr auto ota_password = "1234";
 
 constexpr auto config_file = "/wifi.json";
 constexpr auto config_file_spiffs = "/config/wifi.json";
@@ -279,7 +279,7 @@ void setup() {
     pinMode(pin_CS_SENSE, INPUT);
     pinMode(pin_START_DEFAULT_CFG, INPUT);
     pinMode(pin_CARD_INSERTED, OUTPUT);
-    pinMode(BUILTIN_LED, OUTPUT);
+    pinMode(LED_BUILTIN, OUTPUT);
     attachInterrupt(pin_CS_SENSE, cs_sense_isr, RISING);// marlin release CS
     Serial.begin(SERIAL_BAUND);
     Serial.setRxBufferSize(RXBUFFERSIZE);

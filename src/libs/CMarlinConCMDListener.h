@@ -23,7 +23,7 @@ class CMarlinConCMD_Listener: public CMarlinCon_Listener {
     uint32_t m_waitOkCount;
 public:
     CMarlinConCMD_Listener();
-    auto getCmdQueueSize() const
+    std::queue<tMarlinCMD>::size_type getCmdQueueSize() const
     {
         return m_cmdList.size();
     }

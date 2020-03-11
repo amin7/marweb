@@ -120,11 +120,11 @@ protected:
     void addHandler(tGCodeHandler handler);
     bool addCmd(const std::string &cmd);
 
-    const auto getLineTotal() const
+    const uint16_t getLineTotal() const
     {
         return lineTotal;
     }
-    const auto getLineProcessed() const
+    const uint16_t getLineProcessed() const
     {
         return lineProcessed;
     }

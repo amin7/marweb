@@ -31,10 +31,12 @@ class CProbeAreaGenerator_line: public CProbeAreaGenerator {
     uint16_t m_total_count;
 public:
     //0--100 %
-    auto getDone() const {
+    uint16_t getDone() const
+    {
         return (m_total_count - m_count);
     }
-    auto getTotal() const {
+    uint16_t getTotal() const
+    {
         return m_total_count;
     }
     bool getNext(int16_t &dX, int16_t &dY) override;
