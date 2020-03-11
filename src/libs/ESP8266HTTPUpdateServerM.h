@@ -34,14 +34,12 @@ class ESP8266HTTPUpdateServerM
   protected:
     void _setUpdaterError();
 
-  private:
-    bool _serial_output;
+private:
     ESP8266WebServer *_server;
     String _username;
     String _password;
     bool _authenticated;
     String _updaterError;
-    int _command;
 };
 
 

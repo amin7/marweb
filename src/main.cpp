@@ -124,11 +124,17 @@ void get_configs()
     auto wifi_pwd_ = (String) DEF_WIFI_PWD;
     auto wifi_mode_ = DEF_WIFI_MODE;
     auto wifi_ssid_ = (String) DEF_SSID_NAME;
-
+    unsigned long to = 0;
     while (sdCnt.isMarlinUseSPI())
     {
         yield();
-        DBG_PRINT('.');
+#ifdef DEBUG_STREAM
+        if (millis() > to)
+        {
+            to = millis() + 300;
+            DBG_PRINT('.');
+        }
+#endif
     }
     DBG_PRINTLN();
     sdCnt.requestSDcontrol();
