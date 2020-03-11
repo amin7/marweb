@@ -1,0 +1,12 @@
+.pio
+secret.h
+.ino.cpp
+*.gz
+*.bin
+*.gcode
+*.?#?
+*.exe
+wifi.json
+obj/
+/Release/
+/build/

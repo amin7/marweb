@@ -1,0 +1,30 @@
+{	
+"wwwSourceDir":"./spiffs/www",
+"handler":[
+	{"entry":"/"						,"file":"/spiffs/www/index.html",	"type":"text/html"},
+	{"entry":"/command"					,"inline":"ok" ,	"type":"text/plain"},
+	{"entry":"/command?commandText="			,"inline":"" ,	"type":"text/plain"},
+	{"entry":"/command?commandText=M105"			,"inline":"M105\nok T:26.4 /100.0 @0 B:24.9 /0.0 @0\n ", "type":"text/plain"},
+	{"entry":"/command?commandText=M114"			,"inline":"M114\nX:216.00 Y:-5.00 Z:0.00 E:0.00 Count A:67360 B:1760 Z:0\nok P15 B3", "type":"text/plain"},
+	{"entry":"/command?commandText=M20"			,"file":"./m20_files.txt" ,	"type":"text/plain"},
+	{"entry":"/command?commandText=M27"			,"inline":"SD printing byte 123/12345" ,	"type":"text/plain"},
+	{"entry":"/command?commandText=M27 C"			,"inline":"some file" ,	"type":"text/plain"},
+	{"entry":"/command?commandText=G90"				,"inline":"ok" ,	"type":"text/plain"},
+	{"entry":"/command?commandText=G91"				,"inline":"ok" ,	"type":"text/plain"},
+	{"entry":"/config/macrocfg.json"			,"file":"/spiffs/config/macrocfg.json" ,"type":"application/json"},
+	{"entry":"/config/macro_eng.json"			,"file":"/spiffs/config/macro_eng.json" ,"type":"application/json"},
+	{"entry":"/setStateSDcontrol"				,"inline":"{\"dav\":{\"sdmode\":0}}" ,"type":"application/json"},
+	{"entry":"/setStateSDcontrol?mode=0"			,"inline":"{\"dav\":{\"sdmode\":0}}" ,"type":"application/json"},
+	{"entry":"/setStateSDcontrol?mode=1"			,"inline":"{\"dav\":{\"sdmode\":1}}" ,"type":"application/json"},
+	{"entry":"/setStateSDcontrol?mode=2"			,"inline":"{\"dav\":{\"sdmode\":2}}" ,"type":"application/json"},
+
+	{"entry":"/filelist?path=/"			,"inline":"{\"path\":\"/\",\"files\":[[\"empty/\",1,0],[\"no_files/\",1,0],[\"no_answer/\",1,0],[\"test/\",1,0],[\"file\",0,100]]}" ,"type":"application/json"},
+	{"entry":"/filelist?path=/empty/"			,"inline":"{\"path\":\"/empty/\",\"files\":[]}" ,"type":"application/json"},
+	{"entry":"/filelist?path=/no_files/"		,"inline":"{\"path\":\"/no_files/\"}" ,"type":"application/json"},
+	{"entry":"/filelist?path=/test/"			,"inline":"{\"path\":\"/test/\",\"files\":[[\"test1\",0,12120],[\"test2\",0,220]]}" ,"type":"application/json"},
+
+	{"entry":"/gcodeInfo?file=/test/test1"		,"inline":"{\"dimention\":{\"min\":{\"x\":0,\"y\":0,\"z\":0},\"max\":{\"x\":50,\"y\":20,\"z\":2}}}" ,"type":"application/json"},
+	{"entry":"/gcodeInfo?file=/file"		,"inline":"{\"dimention\":{\"max\":{\"x\":30.48,\"y\":71.12,\"z\":25.4},\"min\":{\"x\":0,\"y\":0,\"z\":-0.8128}},\"lineTotal\":150,\"lineProcessed\":150}","type":"application/json"},
+{}
+]
+}
