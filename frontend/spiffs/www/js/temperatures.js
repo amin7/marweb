@@ -102,29 +102,6 @@ function temperatures_create_item(data){
     return value
 }
 
-function process_Temperatures(response,status) {    
-    var regex_temp = /(B|T(\d*)):\s*([+]?[0-9]*\.?[0-9]+)? (\/)([+]?[0-9]*\.?[0-9]+)?/gi;
-    var result;
-   
-    while ((result = regex_temp.exec(response)) !== null) {
-        if((typeof status.temperature)=='undefined'){
-            status.temperature={};
-        }
-        var tool = result[1];
-        var value =0.00;
-        var value2=0.00;
-        if (!isNaN(parseFloat(result[3]))){   
-            value = parseFloat(result[3]).toFixed(2);
-        }
-        if (!isNaN(parseFloat(result[5]))){
-            value2 = parseFloat(result[5]).toFixed(2);
-        }
-        status.temperature[tool]={
-            current:value,
-            target:value2
-        };
-    }
-}
 
 function temperature_heatOff(target) {
     switch (target) {

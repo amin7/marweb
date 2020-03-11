@@ -13,24 +13,56 @@ function init_command_panel() {
 
 function Monitor_output_callback(output){
 	var status={};
-    marlin_processPosition(output,status);
-    process_Temperatures(output,status)
+    output.split("\n").forEach(function(line){
+        marlin_processPosition(line,status);
+        process_Temperatures(line,status);
+        marlin_SDPrintStatus(line,status);
+    });
     on_statusUpdate(status);
 }
 
-function marlin_processPosition(response,status) {
-    var reg=/^X:-?\d+\.\d+\sY:-?\d+\.\d+\sZ:-?\d+\.\d+/;
-    response.split("\n").forEach(function(line){
-        if(reg.test(line)){
-            if((typeof status.position)=='undefined'){
-                status.position={};
-            }
-            var reg_f=/(X|Y|Z):(-?\d+\.\d+)/gi;
-            while ((coord = reg_f.exec(line)) !== null){
-            	status.position[coord[1]]=parseFloat(coord[2]).toFixed(2);   
-            }
+function process_Temperatures(line,status) {    
+    var regex_temp = /(B|T(\d*)):\s*([+]?[0-9]*\.?[0-9]+)? (\/)([+]?[0-9]*\.?[0-9]+)?/gi;
+    var result;
+   
+    while ((result = regex_temp.exec(line)) !== null) {
+        if((typeof status.temperature)=='undefined'){
+            status.temperature={};
         }
-    });
+        var tool = result[1];
+        var value =0.00;
+        var value2=0.00;
+        if (!isNaN(parseFloat(result[3]))){   
+            value = parseFloat(result[3]).toFixed(2);
+        }
+        if (!isNaN(parseFloat(result[5]))){
+            value2 = parseFloat(result[5]).toFixed(2);
+        }
+        status.temperature[tool]={
+            current:value,
+            target:value2
+        };
+    }
+}
+
+function marlin_processPosition(line,status) {
+    var reg=/^X:-?\d+\.\d+\sY:-?\d+\.\d+\sZ:-?\d+\.\d+/;
+    if(reg.test(line)){
+        if((typeof status.position)=='undefined'){
+            status.position={};
+        }
+        var reg_f=/(X|Y|Z):(-?\d+\.\d+)/gi;
+        while ((coord = reg_f.exec(line)) !== null){
+        	status.position[coord[1]]=parseFloat(coord[2]).toFixed(2);   
+        }
+    };
+}
+
+function marlin_SDPrintStatus(line,status) {
+    const NotSDprinting ="Not SD printing";
+    if((typeof status.SDPrintStatus)=='undefined'){
+            status.SDPrintStatus={};
+    }
 }
 
 function power_off() {

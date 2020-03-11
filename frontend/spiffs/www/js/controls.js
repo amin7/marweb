@@ -9,6 +9,7 @@ const cmd_AutoHomeY='G28 Y';
 const cmd_AutoHomeZ='G28 Z';
 const cmd_DisableSteppers ='M84';
 const cmd_RelativePositioning ='G91';
+const cmd_ReportSDPrintStatus ='M27';
 
 function init_controls_panel() {    
     document.getElementById('control_xy_velocity').value =  config.feedrate.move_xy;
@@ -152,4 +153,14 @@ function controls_gotoZHop(deltaZ){
     var command = cmd_RelativePositioning+"\nG0"+" F" + feedrate+" Z" + deltaZ;
     command+="\nM114"
     marlin_addCommand(command);    
+}
+
+function SDPrintStatus_setAutoReport(fActive){
+    var command = cmd_ReportSDPrintStatus+' ';
+    if(fActive){
+        command+='S10';
+    }else{
+        command+='S0'; //off
+    }
+    marlin_addCommand(command);  
 }

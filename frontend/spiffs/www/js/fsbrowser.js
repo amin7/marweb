@@ -157,7 +157,7 @@ function fsbrowser(id_holder_filelist,impl_name_,file_select,editbtn_){
         return selectedFolder+selectedFile;
     }
 
-    this.refresh();
+    //this.refresh();
 
 
 function UploadProgressDisplay(oEvent){

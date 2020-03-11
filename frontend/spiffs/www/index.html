@@ -69,9 +69,10 @@ Case Light
     <div class="card-body">
         <div class="row">
             <button class="btn btn-lg btn-primary col-sm m-1" style="background-color:grey; color:white" onclick="marlin_setLightIRGB(2,255,0,0)">Night</button>
-            <button class="btn btn-lg btn-warning col-sm m-1" style="background-color:yellow" onclick="marlin_setLightIRGB(255,255,255,255)">On</button>
+            <button class="btn btn-lg btn-warning col-sm m-1" style="background-color:yellow" onclick="marlin_setLightIRGB(255,255,255,255)">On</button>        
+            <div class="w-100"></div>
+            <button class="btn btn-lg btn-dark btn-block m-1" style="background-color:black; color:white" onclick="marlin_setLightIRGB(0,0,0,0)" >Off</button>
         </div>
-        <button class="btn btn-lg btn-dark btn-block m-1" style="background-color:black; color:white" onclick="marlin_setLightIRGB(0,0,0,0)" >Off</button>
     </div>
 </div>
 <!--
@@ -83,8 +84,8 @@ Case Light
         <button class="btn btn-xs btn-primary" id="temperaturesPanel_refresh_btn" onclick="get_Temperatures()" >Refresh</button> 
         <label class="btn btn-secondary float-right">
             <input type="checkbox" onclick="temperatures_setAutoReport(this.checked)"/>
-        <span >Temperature Auto-Report</span>
-        </label>                       
+            <span >Auto-Report</span>
+        </label>
     </div>    
     <div class="card-body panel-height-temp">
         <div class="row">
@@ -155,6 +156,12 @@ Case Light
                     </div>                              
                     <input class="form-control" type="number" min="1" max="9999" id="control_z_velocity" />
                 </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Probing</div>
+                    </div>
+                    <input type="number" class="form-control" id="id_ProbeFeed" min="1" max="100" value="20">
+                </div>  
             </form>             
             <div class="w-100"></div>
             <button class="btn btn-danger col-2 m-1" type="button" onclick="marlin_addCommand(cmd_AutoHome)">Home</button>
@@ -195,13 +202,7 @@ Case Light
             <div class="w-100"></div>
             <span>&nbsp; </span>
             <div class="w-100"></div>
-            <form class="form-inline col-sm m-1">  
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">Feed</div>
-                    </div>
-                    <input type="number" class="form-control" id="id_ProbeFeed" min="1" max="100" value="20">
-                </div>     
+            <form class="form-inline col-sm m-1">
                 <button class="btn btn-info col-sm" type="button" onclick="controls_gotoZHop(document.getElementById('id_ProbeZhop').value)">Z Hop</button>
                 <input type="number" class="form-control" id="id_ProbeZhop" min="1" max="10" value="2">
             </form>
@@ -209,7 +210,7 @@ Case Light
                 <button class="btn btn-primary col-sm" type="button" onclick="controls_ProbeTarget(document.getElementById('id_ProbeDistance').value)">Probe</button>
                 <input type="number" class="form-control" id="id_ProbeDistance" min="1" max="10" value="5">
             </form>
-            <label class="btn btn-secondary m-1 col-2">
+            <label class="btn btn-secondary m-1 col-3">
                 <input type="checkbox" onclick="controls_ProbeTargetMultiple(this.checked)"/>
                 <span>Probe Multiple</span>
             </label>    
@@ -265,15 +266,17 @@ Engraver
                     </div>
                     <input type="number" class="form-control" id="id_levelDelta">
                 </div>
-                <div class="input-group">
+                
+                <span>feedRate</span>
+                <div class="input-group">                    
                     <div class="input-group-prepend">
-                        <div class="input-group-text">feedRateXY</div>
+                        <div class="input-group-text">XY</div>
                     </div>
                     <input type="number" class="form-control" id="id_feedRateXY" min=10>
                 </div>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">feedRateProbe</div>
+                        <div class="input-group-text">Probe</div>
                     </div>
                     <input type="number" class="form-control" id="id_feedRateProbe" min="1">
                 </div>
@@ -321,6 +324,19 @@ Engraver
             </form>
             <button class="btn btn-warning btn-block m-1" type="button" onclick="engraver_probeStop()" >Clear/Stop</button>
         </div>
+    </div>
+</div>
+<!--
+Print status
+-->
+<div class="card">
+    <div class="card-header">
+        <button class="btn btn-info" type="button" onclick="marlin_addCommand(cmd_ReportSDPrintStatus)" >Print status</button>
+        <span id="id_PrintStatus">no</span>
+        <label class="btn btn-secondary float-right">
+            <input type="checkbox" onclick="SDPrintStatus_setAutoReport(this.checked)"/>
+            <span >Auto-Report</span>
+        </label>
     </div>
 </div>
 <!-- 

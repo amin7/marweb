@@ -73,12 +73,12 @@ class CMarlinCon_impl: public CMarlinCon
 class CManageSDControl_impl: public CManageSDControl,public CStatus {
     bool takeBus()
     {
-      digitalWrite(pin_CARD_INSERTED, HIGH); //card_eject
-      LED_ON();
-      pinMode(pin_MISO, SPECIAL);
-      pinMode(pin_MOSI, SPECIAL);
-      pinMode(pin_SCLK, SPECIAL);
-      pinMode(pin_SD_CS, OUTPUT);
+        digitalWrite(pin_CARD_INSERTED, HIGH); //card_eject
+        LED_ON();
+        pinMode(pin_MISO, SPECIAL);
+        pinMode(pin_MOSI, SPECIAL);
+        pinMode(pin_SCLK, SPECIAL);
+        pinMode(pin_SD_CS, OUTPUT);
 
         DBG_PRINTLN("sd begin..");
         if (sdFat.begin(pin_SD_CS, SPI_FULL_SPEED))
