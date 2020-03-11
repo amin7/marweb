@@ -208,7 +208,7 @@ Case Light
             </form>
             <form class="form-inline col-sm m-1">               
                 <button class="btn btn-primary col-sm" type="button" onclick="controls_ProbeTarget(document.getElementById('id_ProbeDistance').value)">Probe</button>
-                <input type="number" class="form-control" id="id_ProbeDistance" min="1" max="10" value="5">
+                <input type="number" class="form-control" id="id_ProbeDistance" min="-10" max="0" value="-5">
             </form>
             <label class="btn btn-secondary m-1 col-3">
                 <input type="checkbox" onclick="controls_ProbeTargetMultiple(this.checked)"/>
