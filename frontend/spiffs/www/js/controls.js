@@ -59,7 +59,6 @@ function controls_UpdateStatus(status){
             document.getElementById('control_y_position').innerHTML = status.position.Y;
         if((typeof status.position.Z)!='undefined'){
             document.getElementById('control_z_position').innerHTML = status.position.Z;
-            smoothieProbeSeries.append(new Date().getTime(), status.position.Z);         
         }
     }
 }
@@ -130,6 +129,13 @@ function control_build_macro_button(item) {
 var ptm_active=false;
 function controls_ProbeTargetMultiple_callback(responce){
     console.log(responce);
+    var status={};
+    responce.split("\n").forEach(function(line){
+        marlin_processPosition(line,status);
+    });
+    if((typeof status.position.Z)!='undefined'){
+        smoothieProbeSeries.append(new Date().getTime(), status.position.Z);         
+    }
     if(ptm_active){
         var feedRateZ = parseInt(document.getElementById('control_z_velocity').value);
         var feedRateProbe=document.getElementById('id_ProbeFeed').value;
