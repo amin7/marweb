@@ -1,6 +1,7 @@
 var config={
 	bed:{
-		size:200,
+		min:[0,-5,0],
+        size:[200,200,200],
 		coner:15
 	},
 	feedrate:{

@@ -8,8 +8,12 @@ const cmd_AutoHomeX='G28 X';
 const cmd_AutoHomeY='G28 Y';
 const cmd_AutoHomeZ='G28 Z';
 const cmd_DisableSteppers ='M84';
+const cmd_AbsolutePositioning ='G90';
 const cmd_RelativePositioning ='G91';
 const cmd_ReportSDPrintStatus ='M27';
+const cmd_LinearMoveIdle='G0';
+const cmd_GetCurrentPosition='M114';
+
 
 function init_controls_panel() {    
     document.getElementById('control_xy_velocity').value =  config.feedrate.move_xy;
@@ -57,8 +61,7 @@ function processMacroGetFailed(errorcode, response) {
 }
 
 function get_Position() {
-    var command = "M114";
-    marlin_addCommand(command);
+    marlin_addCommand(cmd_GetCurrentPosition);
 }
 
 function SendZerocommand(cmd) {
@@ -75,7 +78,7 @@ function controls_GotoZero(fZZero) {
     if(fZZero){
         command+="\nG0"+" F"+feedrateZ+" Z0"
     }
-    command+="\nM114";
+    command+="\n"+cmd_GetCurrentPosition;
     marlin_addCommand(command);
 }
 
@@ -102,7 +105,7 @@ function controls_ProbeTargetMultiple_callback(responce){
         var command = cmd_RelativePositioning+"\nG0"+" F" + feedRateZ+" Z" + config.probe.multiple.hop;
         command+= "\nG38.2 F" +parseInt(feedRateProbe)+ " Z" + (-1*(config.probe.multiple.hop+config.probe.multiple.distance));
         marlin_addCommand(command);
-        marlin_addCommand("M114",controls_ProbeTargetMultiple_callback);
+        marlin_addCommand(cmd_GetCurrentPosition,controls_ProbeTargetMultiple_callback);
     }
 }
 
@@ -151,7 +154,7 @@ function controls_gotoZHop(deltaZ){
     console.log(deltaZ);
     var feedrate = parseInt(document.getElementById('control_z_velocity').value);
     var command = cmd_RelativePositioning+"\nG0"+" F" + feedrate+" Z" + deltaZ;
-    command+="\nM114"
+    command+="\n"+cmd_GetCurrentPosition;
     marlin_addCommand(command);    
 }
 
@@ -163,4 +166,51 @@ function SDPrintStatus_setAutoReport(fActive){
         command+='S0'; //off
     }
     marlin_addCommand(command);  
+}
+
+function marlin_modalMoveAxis(axis){
+    console.log(axis);
+    var index,val;
+    if(axis==='X'){
+        index=0;
+        val=$('#control_x_position').html();
+    }else if(axis==='Y'){
+        index=1;
+        val=$('#control_y_position').html();
+    }else if(axis==='Z'){
+        index=2;
+        val=$('#control_z_position').html();
+    }else{
+        console.error("unknow axis");
+        return; 
+    }
+    $('#id_ModalMoveAxisName').html(axis);
+    $('#modal_rangePos').attr('min',config.bed.min[index]);
+    $('#modal_rangePos').attr('max',config.bed.min[index]+config.bed.size[index]);
+    $('#modal_rangePos').val(parseInt(val));
+    $('#id_ModalMoveAxis').modal('toggle');
+}
+
+function marlin_modalMoveAxisPos(axis,value){
+    console.log(axis,value);
+    var feedrate = document.getElementById('control_xy_velocity').value;
+    if(axis==='Z'){
+        feedrate = document.getElementById('control_z_velocity').value;
+    }
+    var command =cmd_AbsolutePositioning;
+    command+='\n'+cmd_LinearMoveIdle+' F'+feedrate+' '+axis+value;
+    command+='\n'+cmd_GetCurrentPosition;
+    marlin_addCommand(command);
+}
+
+function marlin_modalMoveAxisStep(axis,step){
+    console.log(axis,step);
+    var feedrate = document.getElementById('control_xy_velocity').value;
+    if(axis==='Z'){
+        feedrate = document.getElementById('control_z_velocity').value;
+    }
+    var command =cmd_RelativePositioning;
+    command+='\n'+cmd_LinearMoveIdle+' F'+feedrate+' '+axis+step;
+    command+='\n'+cmd_GetCurrentPosition;
+    marlin_addCommand(command);
 }

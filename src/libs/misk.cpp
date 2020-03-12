@@ -293,7 +293,7 @@ bool isExtMach(const std::string &name, const std::string &ext)
 std::string to_string(uint32_t ul)
 {
     char tt[20];
-    snprintf(tt, sizeof(tt) - 1, "%ul", ul);
+    snprintf(tt, sizeof(tt) - 1, "%u", ul);
     tt[sizeof(tt) - 1] = 0;
     return std::string(tt);
 }
