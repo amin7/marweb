@@ -60,8 +60,25 @@ function marlin_processPosition(line,status) {
 
 function marlin_SDPrintStatus(line,status) {
     const NotSDprinting ="Not SD printing";
-    if((typeof status.SDPrintStatus)=='undefined'){
+    if(line===NotSDprinting){
+        if((typeof status.SDPrintStatus)=='undefined'){
             status.SDPrintStatus={};
+        }
+        status.SDPrintStatus.state=false;
+        return;
+    }
+    var reg=/SD printing byte\s+\d+\/\d+/;
+    if(reg.test(line)){
+        if((typeof status.SDPrintStatus)=='undefined'){
+            status.SDPrintStatus={};
+        }
+        status.SDPrintStatus.state=true;
+        var reg_f=/\d+/g;
+        var poss= [...line.matchAll(reg_f)];
+        if(poss.length ==2){
+            status.SDPrintStatus.pos=parseInt(poss[0]);
+            status.SDPrintStatus.total=parseInt(poss[1]);
+        }
     }
 }
 

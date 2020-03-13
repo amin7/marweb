@@ -391,24 +391,3 @@ w25 {
     }
 
 }
-
-.status_text {
-    font-size: 25px;
-    letter-spacing: 2px;
-    word-spacing: 2px;
-    color: #000000;
-    font-weight: 900;
-    text-decoration: none;
-    font-style: normal;
-    font-variant: small-caps slashed-zero;
-    ;
-    text-transform: none;
-}
-
-.td_center {
-    align: center;
-    valign: middle;
-    text-align: center;
-}
-
-.button_txt {}

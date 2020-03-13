@@ -14,7 +14,7 @@ const cmd_LinearMoveIdle='G0';
 const cmd_GetCurrentPosition='M114';
 
 var smoothieProbe = new SmoothieChart({
-    millisPerPixel: 200,
+    millisPerPixel: 10,
     maxValueScale: 1.1,
     minValueScale: 1.1,
     enableDpiScaling: false,
@@ -38,16 +38,16 @@ function init_controls_panel() {
     document.getElementById('control_xy_velocity').value =  config.feedrate.move_xy;
     document.getElementById('control_z_velocity').value =  config.feedrate.move_z;
     smoothieProbe.addTimeSeries(smoothieProbeSeries, {
-        lineWidth: 1,
+        lineWidth: 2,
         strokeStyle: '#808080',
         fillStyle: 'rgba(128,128,128,0.3)'
     });
     smoothieProbe.streamTo(document.getElementById("id_probeGraph") );
     smoothieProbe.stop();
     get_Position();
-    // setInterval(function() {
-    //   smoothieProbeSeries.append(new Date().getTime(), Math.random()-0.5);
-    // }, 1000);
+    setInterval(function() {
+      smoothieProbeSeries.append(new Date().getTime(), Math.random()-0.5);
+    }, 2000);
 }
 
 
@@ -59,6 +59,14 @@ function controls_UpdateStatus(status){
             document.getElementById('control_y_position').innerHTML = status.position.Y;
         if((typeof status.position.Z)!='undefined'){
             document.getElementById('control_z_position').innerHTML = status.position.Z;
+        }
+    }
+    if((typeof status.SDPrintStatus)!='undefined'){
+        if(status.SDPrintStatus.state){
+            $('#id_printProgressVal').html(status.SDPrintStatus.pos+"/"+status.SDPrintStatus.total);
+            $('#id_printProgress').width(parseInt(status.SDPrintStatus.pos)*100/parseInt(status.SDPrintStatus.total)+"%")
+        }else{
+            $('#id_printProgress').html("no SD printing");
         }
     }
 }
@@ -100,9 +108,9 @@ function SendZerocommand(cmd) {
 }
 
 function controls_GotoZero(fZZero) {
-    var zHop = parseInt(document.getElementById('id_ProbeZhop').value);
-    var feedrateZ = parseInt(document.getElementById('control_z_velocity').value);
-    var feedrateXY = parseInt(document.getElementById('control_xy_velocity').value);
+    var zHop = document.getElementById('id_ProbeZhop');
+    var feedrateZ = document.getElementById('control_z_velocity');
+    var feedrateXY = document.getElementById('control_xy_velocity');
     var command =cmd_RelativePositioning+ "\nG0"+" F" + feedrateZ+" Z" + zHop;
     command+="\nG90\nG0"+" F" + feedrateXY+" X0 Y0";
     if(fZZero){

@@ -7,7 +7,7 @@
 	{"entry":"/command?commandText=M105"			,"inline":"M105\nok T:26.4 /100.0 @0 B:24.9 /0.0 @0\n ", "type":"text/plain"},
 	{"entry":"/command?commandText=M114"			,"inline":"M114\nX:216.00 Y:-5.00 Z:0.00 E:0.00 Count A:67360 B:1760 Z:0\nok P15 B3", "type":"text/plain"},
 	{"entry":"/command?commandText=M20"			,"file":"./m20_files.txt" ,	"type":"text/plain"},
-	{"entry":"/command?commandText=M27"			,"inline":"SD printing byte 123/12345" ,	"type":"text/plain"},
+	{"entry":"/command?commandText=M27"			,"inline":"SD printing byte 123/345" ,	"type":"text/plain"},
 	{"entry":"/command?commandText=M27 C"			,"inline":"some file" ,	"type":"text/plain"},
 	{"entry":"/command?commandText=G90"				,"inline":"ok" ,	"type":"text/plain"},
 	{"entry":"/command?commandText=G91"				,"inline":"ok" ,	"type":"text/plain"},
