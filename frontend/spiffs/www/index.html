@@ -47,22 +47,22 @@ function on_httpStatusResponce(status){
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body onload="onIndexLoad()">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/about">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/firmware">firmware</a>
-            </li>         
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <button class="btn btn-lg btn-danger" id="emergency_off" onclick="emergency_off()" ></button>                
-                <button class="btn btn-lg btn-danger" id=power_off onclick="power_off()"></button>
-            </li>
-        </ul>
-    </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/firmware">firmware</a>
+        </li>         
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <button class="btn btn-lg btn-danger" id="emergency_off" onclick="emergency_off()" ></button>                
+            <button class="btn btn-lg btn-danger" id=power_off onclick="power_off()"></button>
+        </li>
+    </ul>
+</nav>
 <!--
 Case Light
 -->
@@ -96,7 +96,7 @@ Case Light
                     <li class="list-group-item">
                         <span >Heater T0</span>
                         <span id="heaterT0TargetTemp_anime" class="not_visible loader-pulse float-right" style="color:red"></span>
-                        <form class="form-inline">
+                        <div class="form-inline">
                             <button onclick="temperature_heatOff('T0')" class="btn btn-primary" id=temperature_heatOff_T0>  </button>
                             <span class="noshowonlowres">&nbsp;&nbsp;</span>                              
                             <input class="form-control w5" type="number" min="0" max="999" id="heaterT0SelectedTemp" value=0 onkeyup="temperature_handleKeyUp(event, 'T0')" />
@@ -104,12 +104,12 @@ Case Light
                             <span class="noshowonlowres">&nbsp;&nbsp;</span>
                             <button onclick="temperature_heatSet('T0')" class="btn btn-danger" id=temperature_heatSet_T0>  </button>
                             <span id="heaterT0DisplayTemp"></span>  
-                        </form>
+                        </div>
                     </li>
                     <li class="list-group-item">
                         <span >Bed T0</span>
                         <span id="bedTargetTemp_anime" class="not_visible loader-pulse float-right" style="color:red"></span>
-                        <form class="form-inline">     
+                        <div class="form-inline">     
                             <button onclick="temperature_heatOff('bed')" class="btn btn-primary" id=temperature_heatOff_Bed> </button>
                             <span class="noshowonlowres">&nbsp;&nbsp;</span>                              
                             <input class="form-control w5" type="number" min="0" max="999" id="bedSelectedTemp" value=0 onkeyup="temperature_handleKeyUp(event, 'bed')" />
@@ -117,7 +117,7 @@ Case Light
                             <span class="noshowonlowres">&nbsp;&nbsp;</span>
                             <button onclick="temperature_heatSet('bed')" class="btn btn-danger"  id=temperature_heatSet_Bed></button>
                             <span id="bedDisplayTemp"></span>   
-                        </form>
+                        </div>
                     </li>
                 </div>
             </div>
@@ -213,7 +213,7 @@ Case Light
                     <input type="checkbox" onclick="controls_ProbeTargetMultiple(this.checked)"/>
                     <span>Probe Multiple</span>
                 </label>  
-                <canvas id="id_probeGraph" class="m-1" width="600" height="100"></canvas>
+                <canvas id="id_probeGraph" class="m-1" width="500" height="100"></canvas>
             </div>
   
             <div class="w-100"></div>
@@ -268,7 +268,6 @@ Engraver
                     </div>
                     <input type="number" class="form-control" id="id_levelDelta">
                 </div>
-                
                 <span>feedRate</span>
                 <div class="input-group">                    
                     <div class="input-group-prepend">

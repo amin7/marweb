@@ -134,9 +134,6 @@ function temperature_heatSet(target) {
         case 'T0':
             selectedTemp = parseInt(document.getElementById('heaterT0SelectedTemp').value);
             break;
-        case 'T1':
-            selectedTemp = parseInt(document.getElementById('heaterT1SelectedTemp').value);
-            break;
         case 'bed':
             selectedTemp = parseInt(document.getElementById('bedSelectedTemp').value);
             break;

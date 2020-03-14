@@ -44,7 +44,8 @@ function init_controls_panel() {
     });
     smoothieProbe.streamTo(document.getElementById("id_probeGraph") );
     smoothieProbe.stop();
-    get_Position();
+    marlin_addCommand(cmd_GetCurrentPosition);
+    marlin_addCommand(cmd_ReportSDPrintStatus);
     setInterval(function() {
       smoothieProbeSeries.append(new Date().getTime(), Math.random()-0.5);
     }, 2000);
@@ -66,7 +67,7 @@ function controls_UpdateStatus(status){
             $('#id_printProgressVal').html(status.SDPrintStatus.pos+"/"+status.SDPrintStatus.total);
             $('#id_printProgress').width(parseInt(status.SDPrintStatus.pos)*100/parseInt(status.SDPrintStatus.total)+"%")
         }else{
-            $('#id_printProgress').html("no SD printing");
+            $('#id_printProgressVal').html("no SD printing");
         }
     }
 }
