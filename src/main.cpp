@@ -5,9 +5,9 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 #include <ArduinoJson.h>
+#include <ESP8266HTTPUpdateServer.h>
 
-#include "libs/CWebFileListSD.h"
-#include "libs\ESP8266HTTPUpdateServerM.h"
+#include "libs\CWebFileListSD.h"
 #include "libs\CWebServer.h"
 #include "libs\sdcard_ex.h"
 #include "libs\misk.h"
@@ -49,7 +49,7 @@ constexpr auto txt_MarlinRead = "marlin read";
 
 SdFat sdFat;
 ESP8266WebServer serverWeb(SERVER_PORT_WEB);
-ESP8266HTTPUpdateServerM otaUpdater;
+ESP8266HTTPUpdateServer otaUpdater;
 ArduinoOutStream out(Serial);
 CWebMarlinCon WebMarlinCon(serverWeb);
 
