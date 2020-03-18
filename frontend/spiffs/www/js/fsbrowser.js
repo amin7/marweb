@@ -30,14 +30,7 @@ function fsbrowser(id_holder_filelist,impl_name_,file_select,editbtn_){
 
     function CreateNavBar(path){    
         selectedFolder=path;        
-        var content='<div class="row">';
-        if(editbtn){
-            content+=CreateFileUpload(selectedFolder);
-        }
-        content+='<div class="col">';        
-        content +='<button class="btn btn-primary" onclick="'+impl_name+'.refresh()">';
-        content+= get_icon_svg("refresh")
-        content+='</button>';
+        var content="";       
         var path_item = "/";         
         content+=CreateNavBarItem("home",path_item);
         path.split("/").forEach(function(element){ 
@@ -46,16 +39,7 @@ function fsbrowser(id_holder_filelist,impl_name_,file_select,editbtn_){
                 content+=CreateNavBarItem(element,path_item);
             }
         });
-        content+='</div></div>';
-        holder_filelist.innerHTML = content;
-    }
-
-    function CreateFileUpload(path){
-        var content = '<div class="col-md-auto">';
-        content +='<input type="file" id='+impl_name+'_input_file onchange="'+impl_name+'.UploadFile(this.files,\''+path+'\')">';
-        content+='<button class="btn btn-warning" onclick="'+impl_name+'.mkdir()">MkDir</button>';
-        content +='</div>';
-        return content;
+        id_fsbrowser_navbar.innerHTML = content;
     }
 
     function CreateFileList(files){
@@ -99,7 +83,7 @@ function fsbrowser(id_holder_filelist,impl_name_,file_select,editbtn_){
             content += 'empty...';
         }
         content += "</div>";
-        holder_filelist.innerHTML += content;
+        holder_filelist.innerHTML = content;
     }
 
     this.openDir = function(dir){        
@@ -157,6 +141,7 @@ function fsbrowser(id_holder_filelist,impl_name_,file_select,editbtn_){
         return selectedFolder+selectedFile;
     }
 
+
     //this.refresh();
 
 
@@ -167,18 +152,18 @@ function UploadProgressDisplay(oEvent){
     }
 }
 
-    this.UploadFile=function (files,destPath){
+    this.UploadFile=function (files){
         if (files.length){
             var formData = new FormData();
             var url = "/filelist";
             holder_filelist.innerHTML += "Uploading";
-            formData.append('path', destPath);
+            formData.append('path', selectedFolder);
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
-                var arg = destPath + file.name + "S";
+                var arg = selectedFolder + file.name + "S";
                 //append file size first to check updload is complete
                 formData.append(arg, file.size);
-                formData.append('myfile[]', file, destPath + file.name);
+                formData.append('myfile[]', file, selectedFolder + file.name);
             }
             //console.log(formData);
             SendFileHttp(url, formData, UploadProgressDisplay, Uploadsuccess.bind(null,this), Uploadfailed.bind(null,this))

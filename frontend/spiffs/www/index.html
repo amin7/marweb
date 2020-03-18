@@ -209,7 +209,7 @@ Case Light
                         <button class="btn btn-primary col-sm" type="button" onclick="controls_ProbeTarget(document.getElementById('id_ProbeDistance').value)">Probe</button>
                     </form>
                 </div>
-                <label class="btn btn-secondary col-2">
+                <label class="btn btn-secondary col-2 text-center">
                     <input type="checkbox" onclick="controls_ProbeTargetMultiple(this.checked)"/>
                     <span>Probe Multiple</span>
                 </label>  
@@ -249,6 +249,16 @@ SD files
         </ul>
     </div>   
     <div class="card-body"> 
+        <div class="row">
+            <div class="col-md-auto">
+                <input type="file" onchange="fsbrowser_impl.UploadFile(this.files)" accept=".gcode">
+                <button class="btn btn-warning m-1" onclick="fsbrowser_impl.mkdir()">MkDir</button>
+            </div>
+            <div class="row col-sm">  
+                <button class="btn btn-primary col-md-auto m-1" onclick="fsbrowser_impl.refresh()">refresh</button>
+                <div id="id_fsbrowser_navbar" class="row col-sm m-1"></div>
+            </div>
+        </div>
         <div id="id_fsbrowser_placeholder"></div>
     </div>
 </div>
