@@ -13,7 +13,6 @@ function onIndexLoad() {
     document.getElementById('emergency_off').innerHTML = get_icon_svg("fire", "1.3em", "1.2em")
     document.getElementById('emergency_off').innerHTML += get_icon_svg("off", "1.3em", "1.2em")    
     document.getElementById('power_off').innerHTML = get_icon_svg("off", "1.3em", "1.2em")
-    update_UI_firmware_target();
     init_command_panel();
     init_temperature_panel();    
     init_engraver_panel();
@@ -22,15 +21,14 @@ function onIndexLoad() {
     init_fsbrowser();
     fsbrowser_impl=new fsbrowser("id_fsbrowser_placeholder","fsbrowser_impl",engraver_selectFile,true);
 }
-function update_UI_firmware_target() {        
-}
+
 function on_statusUpdate(status){
+    console.log("on_statusUpdate:" , status);
     controls_UpdateStatus(status);
     temperatures_UpdateStatus(status);
+    fsbrowser_UpdateSDcontrolStatus(status);
 }
-function on_httpStatusResponce(status){
-    setStateSDcontrolResponce(status);
-}
+
     </script>
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/bootstrap.js"></script>

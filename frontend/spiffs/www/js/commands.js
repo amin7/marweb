@@ -14,9 +14,13 @@ function init_command_panel() {
 function Monitor_output_callback(output){
 	var status={};
     output.split("\n").forEach(function(line){
-        marlin_processPosition(line,status);
-        process_Temperatures(line,status);
-        marlin_SDPrintStatus(line,status);
+        const trimed=line.trimEnd();
+        if(trimed.length){
+            marlin_processPosition(trimed,status);
+            process_Temperatures(trimed,status);
+            marlin_SDPrintStatus(trimed,status);
+            marlin_SDcontrolSetToMarlin(trimed,status);
+        }
     });
     on_statusUpdate(status);
 }
@@ -79,6 +83,13 @@ function marlin_SDPrintStatus(line,status) {
             status.SDPrintStatus.pos=parseInt(poss[0]);
             status.SDPrintStatus.total=parseInt(poss[1]);
         }
+    }
+}
+
+function marlin_SDcontrolSetToMarlin(line,status){
+    const fl_setToMarlin = "// action:setStateSDcontrolMarlin";
+    if(line===fl_setToMarlin){
+        setStateSDcontrol();
     }
 }
 
@@ -334,6 +345,7 @@ function marlin_printFile_resp(response){
     cmd+="\nM24"
     marlin_addCommand(cmd);
 }
+
 function marlin_printFile(filename){
     var cmd="/setStateSDcontrol?mode=2";
     print_filename=filename;

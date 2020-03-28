@@ -75,3 +75,11 @@ function GetFileHttp(url, resultfn, errorfn) {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
 }
+
+function on_httpStatusResponce(responce){
+    var res = JSON.parse(responce);
+    console.log(res);
+    var status={};
+    status.stateSDcontrol=res.dav.sdmode;
+    on_statusUpdate(status);
+}

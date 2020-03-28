@@ -70,7 +70,20 @@ class CMarlinCon_impl: public CMarlinCon
     }
 }MarlinCon;
 
-class CManageSDControl_impl: public CManageSDControl,public CStatus {
+class CManageSDControl_impl: public CManageSDControl, public CStatus, public CMarlinCon_Listener_IF {
+//put in gfile "M118 A1 action:setStateSDcontrolMarlin" to activate it
+    static constexpr auto fl_setToMarlin = "// action:setStateSDcontrolMarlin\r";
+    void pushLine(const std::string &line) {
+        //catch if start print
+        if (sdStateMarlin != getStateSDcontrol()) {
+            if (0 == line.compare(fl_setToMarlin)) {
+                setStateSDcontrol(sdStateMarlin);
+            }
+        }
+    }
+    std::string getCmd() {
+        return "";
+    }
     bool takeBus()
     {
         digitalWrite(pin_CARD_INSERTED, HIGH); //card_eject
@@ -80,7 +93,7 @@ class CManageSDControl_impl: public CManageSDControl,public CStatus {
         pinMode(pin_SCLK, SPECIAL);
         pinMode(pin_SD_CS, OUTPUT);
 
-        DBG_PRINTLN("sd begin..");
+        DBG_PRINTLN("takeBus");
         if (sdFat.begin(pin_SD_CS, SPI_FULL_SPEED))
         {
             DBG_PRINTLN("sd init ok");
@@ -95,6 +108,7 @@ class CManageSDControl_impl: public CManageSDControl,public CStatus {
     }
     void returnBus()
     {
+        DBG_PRINTLN("returnBus");
         pinMode(pin_MISO, INPUT);
         pinMode(pin_MOSI, INPUT);
         pinMode(pin_SCLK, INPUT);
@@ -299,6 +313,7 @@ void setup() {
 
     MarlinCon.addListener(WebMarlinCon);
     MarlinCon.addListener(webHandelrs.m_ProbeArea);
+    MarlinCon.addListener(sdCnt);
 
     // ----- can't send to uartd arduino mega before. it can cause to activate bootloader
 #ifdef DEBUG_STREAM
@@ -307,7 +322,6 @@ void setup() {
 #endif
     serverWeb.begin();
     out << F(";servers started") << endl;
-    out << F(";SERVER_PORT_WEB:") << SERVER_PORT_WEB << endl;
     //print IP
     out << F("M117 ");
     if (WIFI_AP == WiFi.getMode())

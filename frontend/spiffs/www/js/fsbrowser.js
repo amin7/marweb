@@ -204,11 +204,11 @@ function setActiveState(id,isActive) {
     }
 }
 
-function setStateSDcontrolResponce(responce) {
-    var res = JSON.parse(responce);
-    console.log(res);
-    setActiveState('SDcontrol_auto',(res.dav.sdmode==0));
-    setActiveState('SDcontrol_esp',(res.dav.sdmode==1));
-    setActiveState('SDcontrol_marlin',(res.dav.sdmode==2));
+function fsbrowser_UpdateSDcontrolStatus(status){
+    if((typeof status.stateSDcontrol)!='undefined'){
+        setActiveState('SDcontrol_auto',(status.stateSDcontrol==SDcontrolMode_auto));
+        setActiveState('SDcontrol_esp',(status.stateSDcontrol==SDcontrolMode_esp));
+        setActiveState('SDcontrol_marlin',(status.stateSDcontrol==SDcontrolMode_marlin));
+    }
 }
 
