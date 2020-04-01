@@ -12,18 +12,23 @@ var config={
 	},
     probe:{
         feedrate_xy:500,
-        feedrate_z:20,
-        safeZHop:10,
+        feedrate_z_base:20,
         grid:5,
         distance_min:0.1,
         distance_max:10,
         multiple:{
-            hop:1,
-            distance:1
+            delta:0.5
+        },
+        double:{
+            hop:0.5,
+            distance:-1
         },
         area:{
             distance:0.5
         }
+    },
+    engraver:{
+        ToolChangeZ:20
     }
 };
 

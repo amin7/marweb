@@ -103,11 +103,6 @@ function get_Position() {
     marlin_addCommand(cmd_GetCurrentPosition);
 }
 
-function SendZerocommand(cmd) {
-    var command = "G10 L20 P0 " + cmd;
-    marlin_addCommand(command);
-}
-
 function controls_GotoZero(fZZero) {
     var zHop = document.getElementById('id_ProbeZhop');
     var feedrateZ = document.getElementById('control_z_velocity');
@@ -137,19 +132,20 @@ function control_build_macro_button(item) {
 
 var ptm_active=false;
 function controls_ProbeTargetMultiple_callback(responce){
-    console.log(responce);
-    var status={};
-    responce.split("\n").forEach(function(line){
-        marlin_processPosition(line,status);
-    });
-    if((typeof status.position.Z)!='undefined'){
-        smoothieProbeSeries.append(new Date().getTime(), status.position.Z);         
+    if((typeof responce)!='undefined'){
+        var status={};
+        responce.split("\n").forEach(function(line){
+            marlin_processPosition(line,status);
+        });
+        if((typeof status.position.Z)!='undefined'){
+            smoothieProbeSeries.append(new Date().getTime(), status.position.Z);         
+        }
     }
     if(ptm_active){
-        var feedRateZ = parseInt(document.getElementById('control_z_velocity').value);
+        controls_gotoZHop(config.probe.multiple.delta);
         var feedRateProbe=document.getElementById('id_ProbeFeed').value;
-        var command = cmd_RelativePositioning+"\nG0"+" F" + feedRateZ+" Z" + config.probe.multiple.hop;
-        command+= "\nG38.2 F" +parseInt(feedRateProbe)+ " Z" + (-1*(config.probe.multiple.hop+config.probe.multiple.distance));
+        var command = cmd_RelativePositioning;
+        command+= "\nG38.2 F" +parseInt(feedRateProbe)+ " Z" + (-2 * config.probe.multiple.delta);
         marlin_addCommand(command);
         marlin_addCommand(cmd_GetCurrentPosition,controls_ProbeTargetMultiple_callback);
     }
@@ -158,43 +154,58 @@ function controls_ProbeTargetMultiple_callback(responce){
 function controls_ProbeTargetMultiple(fActive) {
     ptm_active=fActive;
     if(fActive){
-        controls_ProbeTarget(document.getElementById('id_ProbeDistance').value,controls_ProbeTargetMultiple_callback)
         smoothieProbeSeries.clear();
         smoothieProbe.start();
+        controls_ProbeTargetMultiple_callback();
     }else{
         clear_command_list();
-        controls_gotoZHop(config.probe.multiple.hop);
+        controls_gotoZHop(config.probe.multiple.delta);
         smoothieProbe.stop();
     }
 }
 
-function controls_ProbeTarget(probeDistance_,callback) {
+//-----------
+function controls_ProbeTargetMultiple_callback_hit(response){
+    if(response.indexOf("\nError:Failed to reach target")==-1){ //hit
+        const feedRateProbe=parseInt(document.getElementById('id_ProbeFeed').value)/2;
+        clear_command_list();
+        controls_gotoZHop(config.probe.double.hop);
+        var command = "G38.2 F" +feedRateProbe+ " Z" + config.probe.double.distance;
+        command+="\n"+cmd_GetCurrentPosition;
+        marlin_addCommand(command);   
+    }
+}
+
+function controls_ProbeTarget(probeDistance_) {
+    clear_command_list();
     var probeDistance=parseFloat(probeDistance_);
     console.log(probeDistance);
-    var feedRateZ = parseInt(document.getElementById('control_z_velocity').value);
-    var feedRateProbe=parseInt(document.getElementById('id_ProbeFeed').value);
-    var command = cmd_RelativePositioning;
+    const feedRateZ = parseInt(document.getElementById('control_z_velocity').value);
+    const feedRateProbe=parseInt(document.getElementById('id_ProbeFeed').value);
+    marlin_addCommand(cmd_RelativePositioning);
     if(-20>probeDistance){
-
-        command += "\nG38.2 F" +feedRateZ+ " Z" + (probeDistance+20);
+        var command = "G38.2 F" +feedRateZ+ " Z" + (probeDistance+20);
+        marlin_addCommand(command,controls_ProbeTargetMultiple_callback_hit);
         probeDistance=-20;
     }
     if(-5>probeDistance){
-        command += "\nG38.2 F" +feedRateProbe*2+ " Z" + (probeDistance+5);
+        var command = "G38.2 F" +feedRateProbe*2+ " Z" + (probeDistance+5);
+        marlin_addCommand(command,controls_ProbeTargetMultiple_callback_hit);
         probeDistance=-5;
     }
-    command += "\nG38.2 F" +feedRateProbe+ " Z" + probeDistance;
-    marlin_addCommand(command);
-    marlin_addCommand("M114",callback);
+    var command = "G38.2 F" +feedRateProbe+ " Z" + probeDistance;
+    marlin_addCommand(command,controls_ProbeTargetMultiple_callback_hit);
+    marlin_addCommand(cmd_GetCurrentPosition); //will run if no hit
 }
 
-function controls_gotoToPos(posX,posY){
-    console.log(posX,posY);
-    if( 0>posX || 0>posY){
-        return;
+function controls_gotoToPos(posX,posY,posZ){
+    var command = cmd_AbsolutePositioning+"\n";
+    if((typeof posZ)!='undefined'){
+        var feedrateZ = parseInt(document.getElementById('control_z_velocity').value);
+        command += "G0"+" F" + feedrateZ+" Z" + posZ+"\n";         
     }
     var feedrate = parseInt(document.getElementById('control_xy_velocity').value);
-    var command = "G90\nG1"+" F" + feedrate+" X" + posX + " Y"+posY;
+    command+= "G0"+" F" + feedrate+" X" + posX + " Y"+posY;
     command+="\nM114"
     marlin_addCommand(command);    
 }

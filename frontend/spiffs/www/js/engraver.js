@@ -2,9 +2,8 @@ function engraver_applyProbeAreaSize(response){
     var gcodeInfo;
     try {        
         gcodeInfo = JSON.parse(response);
-        var grid=document.getElementById("id_ProbeAreaGrid").value;
-        document.getElementById("id_ProbeAreaSizeX").value= Math.ceil(gcodeInfo.dimention.max.x);
-        document.getElementById("id_ProbeAreaSizeY").value= Math.ceil(gcodeInfo.dimention.max.y);
+        $('#id_ProbeAreaSizeX').val(Math.ceil(gcodeInfo.dimention.max.x));
+        $('#id_ProbeAreaSizeY').val(Math.ceil(gcodeInfo.dimention.max.y));
     } catch (e) {
         console.error("Parsing error:", e);
     }
@@ -33,46 +32,30 @@ function engraver_selectFile(filename){
     
 }
 
-
 function init_engraver_panel(){
-    probe_coner=0;
     engraver_selectFile("");
-    document.getElementById("id_ProbeAreaSizeX").max= config.bed.size;
-    document.getElementById("id_ProbeAreaSizeX").value=30;    
-    document.getElementById("id_ProbeAreaSizeY").max= config.bed.size;
-    document.getElementById("id_ProbeAreaSizeY").value=30;
-    document.getElementById("id_feedRateXY").max= config.feedrate.max_xy;    
-    document.getElementById("id_feedRateXY").value= config.probe.feedrate_xy;
-    document.getElementById("id_feedRateProbe").max= config.feedrate.max_z;    
-    document.getElementById("id_feedRateProbe").value= config.probe.feedrate_z;
-    document.getElementById("id_safeZhop").max= config.bed.size;    
-    document.getElementById("id_safeZhop").value= config.probe.safeZHop;
-    document.getElementById("id_ProbeAreaGrid").value= config.probe.grid;
-    document.getElementById("id_levelDelta").value= config.probe.area.distance;  
-    document.getElementById("id_levelDelta").min= config.probe.distance_min;  
-    document.getElementById("id_levelDelta").max= config.probe.distance_max;  
+    $('#id_ProbeAreaSizeX').attr('max',config.bed.size[0]);
+    $('#id_ProbeAreaSizeX').val(30);
+    $('#id_ProbeAreaSizeY').attr('max',config.bed.size[1]);
+    $('#id_ProbeAreaSizeY').val(30);
+    $('#id_feedRateProbeXY').attr('max',config.feedrate.max_xy); 
+    $('#id_feedRateProbeXY').val(config.probe.feedrate_xy); 
+    $('#id_ProbeAreaGrid').val(config.probe.grid);
+    $('#id_levelDelta').val(config.probe.area.distance);  
+    $('#id_levelDelta').attr('min',config.probe.distance_min); 
+    $('#id_levelDelta').attr('max',config.probe.distance_max); 
+    $('#id_ToolChangeZ').val(config.engraver.ToolChangeZ);   
 }
 
-function engraver_probeArea(sizeX,sizeY,grid,levelDelta,feedRateXY,feedRateProbe){
+function engraver_probeArea(){
     url="/probe?mode=area";
-    url+="&sizeX="+parseInt(sizeX);
-    url+="&sizeY="+parseInt(sizeY);
-    url+="&grid="+parseInt(grid);
-    url+="&levelDelta="+parseFloat(levelDelta);
-    url+="&feedRateXY="+parseInt(feedRateXY);
-    url+="&feedRateProbe="+parseInt(feedRateProbe);
+    url+="&sizeX="+parseInt($('#id_ProbeAreaSizeX').val());
+    url+="&sizeY="+parseInt($('#id_ProbeAreaSizeY').val());
+    url+="&grid="+parseInt($('#id_ProbeAreaGrid').val());
+    url+="&levelDelta="+parseFloat($('#id_levelDelta').val());
+    url+="&feedRateXY="+parseInt($('#id_feedRateProbeXY').val());
+    url+="&feedRateProbe="+parseInt($('#id_ProbeFeed').val());
     url+="&doubleTouch=0";
-    SendGetHttp(url,on_httpStatusResponce,engraver_ResultError);
-}
-
-function engraver_higlightArea(sizeX,sizeY,grid,zHop,feedRateXY,feedRateProbe){
-    url="/probe?mode=higlight";
-    url+="&sizeX="+parseInt(sizeX);
-    url+="&sizeY="+parseInt(sizeY);
-    url+="&grid="+parseInt(grid);
-    url+="&zHop="+parseFloat(zHop);
-    url+="&feedRateXY="+parseInt(feedRateXY);
-    url+="&feedRateProbe="+parseInt(feedRateProbe);
     SendGetHttp(url,on_httpStatusResponce,engraver_ResultError);
 }
 
