@@ -104,9 +104,9 @@ function get_Position() {
 }
 
 function controls_GotoZero(fZZero) {
-    var zHop = document.getElementById('id_ProbeZhop');
-    var feedrateZ = document.getElementById('control_z_velocity');
-    var feedrateXY = document.getElementById('control_xy_velocity');
+    var zHop = $('#id_ProbeZhop').val();
+    var feedrateZ = $('#control_z_velocity').val();
+    var feedrateXY = $('#control_xy_velocity').val();
     var command =cmd_RelativePositioning+ "\nG0"+" F" + feedrateZ+" Z" + zHop;
     command+="\nG90\nG0"+" F" + feedrateXY+" X0 Y0";
     if(fZZero){

@@ -112,27 +112,17 @@ void CWebServer::handleProbesGet() {
     m_server.sendContent(jsonbeg.str().c_str());
 
     DBG_PRINTLN(ZheighArray.size())
-    const auto countX = (sizeX / grid) + 1;
-    auto it = ZheighArray.begin();
-    bool start_row = true;
-    while (it < ZheighArray.end()) {
-        auto n = countX;
-        std::ostringstream row;
-        if (!start_row) {
+    auto add_comma = true;
+    std::ostringstream row;
+    for (auto val : ZheighArray)
+    {
+        row << val;
+        if (add_comma) {
             row << ",";
+            add_comma = false;
         }
-        start_row = false;
-        row << "[";
-        while (n--) {
-            row << *it;
-            if (n) {
-                row << ",";
-            }
-            it++;
-        }
-        row << "]";
-        m_server.sendContent(row.str().c_str());
     }
+    m_server.sendContent(row.str().c_str());
 
     m_server.sendContent("]}");
     m_server.sendContent("");

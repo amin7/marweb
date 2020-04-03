@@ -14,6 +14,7 @@
 
 using namespace std;
 
+//./obj/unittests.exe --gtest_filter=CProbeAreaTest*
 class CProbeAreaTest: public testing::Test {
 public:
 
@@ -95,8 +96,8 @@ TEST_F(CProbeAreaTest, ok)
         EXPECT_EQ(val, 1);
     }
 
-    EXPECT_EQ(area.getSizeX(), 10);
-    EXPECT_EQ(area.getSizeY(), 10);
+EXPECT_EQ(area.getSizeX(), 3);
+EXPECT_EQ(area.getSizeY(), 3);
     EXPECT_EQ(area.getGrid(), 5);
     auto ZheighArray = area.getZheighArray();
     EXPECT_EQ(ZheighArray.size(), 9);

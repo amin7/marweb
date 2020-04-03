@@ -119,4 +119,27 @@ TEST_F(CGcodeBedLevelProducerTest, xy)
     EXPECT_EQ(os_cmd.str(), "G1 X3.536 Y3.536 Z0\nG1 X7.071 Y7.071 Z0\nG1 X10.607 Y10.607 Z0\nG1 X12.803 Y12.803 Z0\nG1 X15 Y15 Z0\n");
 }
 
+TEST_F(CGcodeBedLevelProducerTest, misk)
+{
+    CGcodeParser parser;
+    CGcodeBedLevelProducer producer(parser, [&](const std::string &str) -> bool
+            {
+                os_cmd<<str;
+                return true;
+            }, CBedLevel(15, 15, 5,
+                    {   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));
+
+    parser.addCmd("G1 Z1");
+    EXPECT_EQ(os_cmd.str(), "G1 Z1\n");
+
+    os_cmd = {};
+    producer.clear();
+    parser.addCmd("G1 X2 Z1");
+    EXPECT_EQ(os_cmd.str(), "G1 X2 Z1\n");
+
+    os_cmd = {};
+    producer.clear();
+    parser.addCmd("G1 Y3 Z1");
+    EXPECT_EQ(os_cmd.str(), "G1 Y3 Z1\n");
+}
 #endif

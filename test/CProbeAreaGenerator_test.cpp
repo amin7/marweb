@@ -16,7 +16,7 @@
 #include <iostream>
 
 using namespace std;
-
+//./obj/unittests.exe --gtest_filter=CProbeAreaGeneratorTest*
 template<std::size_t nX, std::size_t nY>
 class CTestedArray {
 
@@ -105,10 +105,10 @@ TEST_F(CProbeAreaGeneratorTest, line)
 {
     constexpr auto szX = 10;
     constexpr auto szY = 10;
-    constexpr auto step = 5;
+    constexpr auto step = 1;
     CTestedArray<szX / step, szY / step> arr(step);
     CProbeAreaGenerator_line Generator;
-    ASSERT_TRUE(Generator.init(szX, szY, step));
+    ASSERT_TRUE(Generator.init(szX+1, szY+1));
     auto maxcount = (szX / step + 1) * (szY / step + 1);
     int16_t X = 0;
     int16_t Y = 0;
@@ -120,6 +120,8 @@ TEST_F(CProbeAreaGeneratorTest, line)
         maxcount--;
         X += dX;
         Y += dY;
+        ASSERT_EQ(X, Generator.getX());
+        ASSERT_EQ(Y, Generator.getY());
         ASSERT_FALSE(arr.get(X, Y)); //doubleset
         ASSERT_TRUE(arr.set(X, Y));
     }

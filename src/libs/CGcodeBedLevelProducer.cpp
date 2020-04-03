@@ -33,6 +33,26 @@ bool CGcodeBedLevelProducer::produceLine(const std::string &cmd, const tGCodePar
     DBG_PRINT(" ");
     DBG_PRINTLN(m_BedLevel.isInitOk());
 
+    bool isXpresent = false;
+    bool isYpresent = false;
+    for (const auto attr : par)
+    {
+        if (!isnan(attr.second))
+                {
+            if ('X' == attr.first) {
+                isXpresent = true;
+            } else if ('Y' == attr.first) {
+                isYpresent = true;
+            }
+        }
+    }
+    if (!isXpresent) {
+        par_loc.erase('X');
+    }
+    if (!isYpresent) {
+        par_loc.erase('Y');
+    }
+
     auto beg_x = m_pre_state.point.getX();
     auto beg_y = m_pre_state.point.getY();
     auto beg_z = m_pre_state.point.getZ();
@@ -63,8 +83,12 @@ bool CGcodeBedLevelProducer::produceLine(const std::string &cmd, const tGCodePar
             ERR_LOG();
             return false;
         }
-        par_loc['X'] = beg_x;
-        par_loc['Y'] = beg_y;
+        if (isXpresent) {
+            par_loc['X'] = beg_x;
+        }
+        if (isYpresent) {
+            par_loc['Y'] = beg_y;
+        }
         par_loc['Z'] = beg_z + correction;
         if (!CGcodeProducer::produceCmd(cmd, par_loc))
         {

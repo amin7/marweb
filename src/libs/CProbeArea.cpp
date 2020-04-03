@@ -12,31 +12,7 @@ using namespace std;
 
 std::vector<double> CProbeArea::getZheighArray() const
 {
-    std::vector<double> ZheighArray;
-    if (getMode() == paDone)
-    {
-        uint16_t X = 0;
-        uint16_t Y = 0;
-        CProbeAreaGenerator_line areaGenerator;
-        areaGenerator.init(m_sizeX, m_sizeY, m_grid);
-
-        const auto countX = (m_sizeX / m_grid + 1);
-        const auto countY = (m_sizeY / m_grid + 1);
-        const auto count = countX * countY;
-
-        ZheighArray.reserve(count);
-        ZheighArray.resize(count);
-        for (auto val : m_ZheighArray)
-        {
-            int16_t dX;
-            int16_t dY;
-            ZheighArray.at(Y * countY + X) = val;
-            areaGenerator.getNext(dX, dY);
-            X += (dX / m_grid);
-            Y += (dY / m_grid);
-        }
-    }
-    return ZheighArray;
+    return m_ZheighArray;
 }
 
 void CProbeArea::stop()
@@ -97,7 +73,7 @@ bool CProbeArea::positionCallback(string &result)
         {
             break;
         }
-        m_ZheighArray.push_back(zval);
+        m_ZheighArray.at(m_AreaGenerator.getY() * m_sizeY + m_AreaGenerator.getX()) = zval;
         int16_t dX, dY;
         if (m_AreaGenerator.getNext(dX, dY))
         {
@@ -105,7 +81,7 @@ bool CProbeArea::positionCallback(string &result)
             os_cmd << "M117 probing:" << static_cast<unsigned>(m_AreaGenerator.getDone()) << "/" << static_cast<unsigned>(m_AreaGenerator.getTotal()) << "\n";
             os_cmd << "G0 F" << m_feedRateProbe * 2 << " Z" << m_levelDelta << "\n";
             os_cmd << "G0 F" << m_feedRateXY * 2 << " X" << dX << " " << " Y" << dY << "\n";
-            os_cmd << "G38.2 F" << m_feedRateProbe << " Z-5"; //first 5mm
+            os_cmd << "G38.2 F" << m_feedRateProbe << " Z" << m_levelDelta * -2;
             if (addCmd(os_cmd.str(),
                     [&](string &result) -> bool
                     {
@@ -148,10 +124,13 @@ bool CProbeArea::run(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double level
     }
     m_grid = grid;
     
-    m_sizeX = ((sizeX + grid - 1) / grid) * grid;
-    m_sizeY = ((sizeY + grid - 1) / grid) * grid;
-    m_ZheighArray.reserve((m_sizeX / m_grid + 1) * (m_sizeY / m_grid + 1));
-    if (!m_AreaGenerator.init(m_sizeX, m_sizeY, m_grid))
+    m_sizeX = ((sizeX + grid - 1) / grid) + 1;
+    m_sizeY = ((sizeY + grid - 1) / grid) + 1;
+
+    const auto count = m_sizeX * m_sizeY;
+    m_ZheighArray.reserve(count);
+    m_ZheighArray.resize(count);
+    if (!m_AreaGenerator.init(m_sizeX, m_sizeY))
     {
         return false;
     }
@@ -163,8 +142,8 @@ bool CProbeArea::run(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double level
 //first
     ostringstream os_cmd;
     os_cmd << "G21\nG91\n";
-    os_cmd << "G0 F" << m_feedRateProbe * 2 << " Z" << levelDelta << "\n";
-    os_cmd << "G38.2 F" << m_feedRateProbe << " Z" << levelDelta * -2;
+    os_cmd << "G0 F" << m_feedRateProbe * 2 << " Z" << m_levelDelta << "\n";
+    os_cmd << "G38.2 F" << m_feedRateProbe << " Z" << m_levelDelta * -2;
 
     if (!addCmd(os_cmd.str(),
             [&](string &result) -> bool

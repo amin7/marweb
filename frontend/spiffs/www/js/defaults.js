@@ -11,7 +11,7 @@ var config={
 		move_z:300
 	},
     probe:{
-        feedrate_xy:500,
+        feedrate_xy:750,
         feedrate_z_base:20,
         grid:5,
         distance_min:0.1,
