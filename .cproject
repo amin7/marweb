@@ -31,11 +31,6 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/SPI"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock/include"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest/include"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/ArduinoJson_ID64/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include"/>
@@ -97,11 +92,6 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/SPI"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock/include"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest/include"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/ArduinoJson_ID64/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include"/>
@@ -163,11 +153,6 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/SPI"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock/include"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest/include"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/ArduinoJson_ID64/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include"/>
@@ -255,11 +240,6 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/SPI"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock/include"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest/include"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/ArduinoJson_ID64/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include"/>
@@ -321,11 +301,6 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/SPI"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock/include"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest/include"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/ArduinoJson_ID64/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include"/>
@@ -387,11 +362,6 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/SPI"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock/include"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest/include"/>
-									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/ArduinoJson_ID64/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include"/>

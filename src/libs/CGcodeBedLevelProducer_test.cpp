@@ -5,8 +5,6 @@
  *      Author: ominenko
  */
 
-//#define UNIT_TEST
-#ifdef UNIT_TEST
 #include "../src/libs/CGcodeBedLevelProducer.h"
 #include "gtest/gtest.h"
 #include <sstream>
@@ -142,4 +140,3 @@ TEST_F(CGcodeBedLevelProducerTest, misk)
     parser.addCmd("G1 Y3 Z1");
     EXPECT_EQ(os_cmd.str(), "G1 Y3 Z1\n");
 }
-#endif

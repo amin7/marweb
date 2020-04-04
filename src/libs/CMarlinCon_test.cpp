@@ -4,8 +4,7 @@
  *  Created on: 19 груд. 2019 р.
  *      Author: ominenko
  */
-//#define UNIT_TEST
-#ifdef UNIT_TEST
+
 #include "../src/libs/CMarlinCon.h"
 #include "gtest/gtest.h"
 #include "test_helper.h"
@@ -38,5 +37,4 @@ TEST_F(CMarlinConTest, basic)
     EXPECT_EQ(Listener.getMbuff(), ">>cmd\nrep\n");
 
 }
-#endif
 

@@ -5,8 +5,6 @@
  *      Author: ominenko
  */
 
-//#define UNIT_TEST
-#ifdef UNIT_TEST
 #include "../src/libs/CProbeAreaGenerator.h"
 #include "test_helper.h"
 #include "gtest/gtest.h"
@@ -132,6 +130,4 @@ TEST_F(CProbeAreaGeneratorTest, generator)
     ASSERT_EQ(maxcount, 1);
     ASSERT_TRUE(arr.check());
 }
-
-#endif
 

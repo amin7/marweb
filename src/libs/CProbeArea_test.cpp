@@ -4,8 +4,7 @@
  *  Created on: 19 груд. 2019 р.
  *      Author: ominenko
  */
-//#define UNIT_TEST
-#ifdef UNIT_TEST
+
 #include "../src/libs/CProbeArea.h"
 #include "test_helper.h"
 #include "gtest/gtest.h"
@@ -101,6 +100,4 @@ TEST_F(CProbeAreaTest, ok) {
     EXPECT_EQ(genetator.getGrid(), 5);
 
 }
-
-#endif
 

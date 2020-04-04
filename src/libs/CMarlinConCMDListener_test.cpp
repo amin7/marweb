@@ -4,7 +4,6 @@
  *  Created on: 19 груд. 2019 р.
  *      Author: ominenko
  */
-#ifdef UNIT_TEST
 #include "../src/libs/CMarlinConCMDListener.h"
 #include "gtest/gtest.h"
 
@@ -108,6 +107,4 @@ TEST_F(CMarlinCMD_ListenerTest, fewCmd)
     EXPECT_EQ(CMD.getCmd(),"M114");
     CMD.pushLine("ok");
 }
-
-#endif
 
