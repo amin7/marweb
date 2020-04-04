@@ -71,8 +71,7 @@ TEST_F(CProbeAreaTest, runErr2)
     EXPECT_EQ(area.getMode(), CMarlinRun::paError);
 }
 
-TEST_F(CProbeAreaTest, ok)
-{
+TEST_F(CProbeAreaTest, ok) {
     CProbeArea area;
     CMarlinCon_implTest con;
     con.addListener(area);
@@ -90,21 +89,17 @@ TEST_F(CProbeAreaTest, ok)
     }
     EXPECT_TRUE(max_cmdcount>0);
     EXPECT_EQ(area.getMode(), CMarlinRun::paDone);
-    EXPECT_EQ(area.getZheighArray().size(), 15);
-for (const auto val : area.getZheighArray())
+    const auto &genetator = area.getAreaGenerator();
+    EXPECT_EQ(genetator.getZheighArray().size(), 15);
+    for (const auto val : genetator.getZheighArray())
     {
         EXPECT_EQ(val, 1);
     }
 
-    EXPECT_EQ(area.getSizeX(), 10);
-    EXPECT_EQ(area.getSizeY(), 20);
-    EXPECT_EQ(area.getGrid(), 5);
-    auto ZheighArray = area.getZheighArray();
-    EXPECT_EQ(ZheighArray.size(), 15);
-    for (const auto val : ZheighArray)
-    {
-        EXPECT_EQ(val, 1);
-    }
+    EXPECT_EQ(genetator.getSizeX(), 10);
+    EXPECT_EQ(genetator.getSizeY(), 20);
+    EXPECT_EQ(genetator.getGrid(), 5);
+
 }
 
 #endif

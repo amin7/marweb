@@ -108,7 +108,7 @@ TEST_F(CProbeAreaGeneratorTest, generator)
     constexpr auto step = 1;
     CTestedArray<szX / step, szY / step> arr(step);
     CProbeAreaGenerator_line Generator;
-    ASSERT_TRUE(Generator.init(szX+1, szY+1,1));
+    ASSERT_TRUE(Generator.init(szX, szY,step));
     auto maxcount = (szX / step + 1) * (szY / step + 1);
     int16_t X = 0;
     int16_t Y = 0;

@@ -21,7 +21,7 @@ class CGcodeBedLevelProducer: public CGcodeProducer {
     public:
     static constexpr auto m_Ztolerance = 0.01; //if less - no z correction
     CGcodeBedLevelProducer(CGcodeParser &parcer, std::function<bool(const std::string &str)> writefn,
-            const CProbeArea &probeArea);
+            const CProbeAreaGenerator &AreaGenerator);
     CGcodeBedLevelProducer(CGcodeParser &parcer, std::function<bool(const std::string &str)> writefn,
             CBedLevel &&BedLevel);
     bool produceCmd(const std::string &cmd, const tGCodeParams &par) override;

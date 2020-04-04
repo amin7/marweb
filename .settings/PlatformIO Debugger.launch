@@ -20,7 +20,7 @@
     <stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_START_MODE" value="run"/>
     <booleanAttribute key="org.eclipse.cdt.launch.DEBUGGER_STOP_AT_MAIN" value="false"/>
     <stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_STOP_AT_MAIN_SYMBOL" value=""/>
-    <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_ARGUMENTS" value="--gtest_filter=CProbeAreaTest.ok"/>
+    <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_ARGUMENTS" value="--gtest_filter=CProbeAreaTest*"/>
     <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="D:\user\hobby\git\marweb\test\obj\unittests.exe "/>
     <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="marweb_ut"/>
     <booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="false"/>

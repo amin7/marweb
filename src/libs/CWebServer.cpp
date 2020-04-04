@@ -86,35 +86,23 @@ void CWebServer::handleProbesGet() {
         return;
     }
     DBG_FUNK_LINE();
-    const auto sizeX = m_ProbeArea.getSizeX();
-    const auto sizeY = m_ProbeArea.getSizeY();
-    const auto grid = m_ProbeArea.getGrid();
-    const auto ZheighArray = m_ProbeArea.getZheighArray();
-#if 1
-#else
-    grid = 1;
-    for (sizeY = 0; sizeY < 20; sizeY += grid) {
-        for (sizeX = 0; sizeX < 20; sizeX += grid) {
-            ZheighArray.push_back(sizeX);
-        }
-    }
-#endif
+    const auto &generator = m_ProbeArea.getAreaGenerator();
 
     m_server.setContentLength(CONTENT_LENGTH_UNKNOWN);
     m_server.sendHeader("Content-Type", "application/json", true);
     m_server.sendHeader("Cache-Control", "no-cache");
     std::ostringstream jsonbeg;
     jsonbeg << "{";
-    jsonbeg << "\"sizeX\":" << sizeX << ",";
-    jsonbeg << "\"sizeY\":" << sizeY << ",";
-    jsonbeg << "\"grid\":" << grid << ",";
+    jsonbeg << "\"sizeX\":" << generator.getSizeX() << ",";
+    jsonbeg << "\"sizeY\":" << generator.getSizeY() << ",";
+    jsonbeg << "\"grid\":" << generator.getGrid() << ",";
     jsonbeg << "\"zHeigh\": [";
     m_server.sendContent(jsonbeg.str().c_str());
 
     DBG_PRINTLN(ZheighArray.size())
     auto add_comma = false;
     std::ostringstream row;
-    for (auto val : ZheighArray)
+            for (auto val : generator.getZheighArray())
     {
         if (add_comma) {
             row << ",";
@@ -314,7 +302,7 @@ void CWebServer::handleLevelMod()
             return false;
         }
         return true;
-    }, m_ProbeArea);
+    }, m_ProbeArea.getAreaGenerator());
     int16_t n;
     char buff[256];
     uint32_t yelddelay = 0;

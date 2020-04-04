@@ -17,9 +17,9 @@ CGcodeBedLevelProducer::CGcodeBedLevelProducer(CGcodeParser &parcer, std::functi
 }
 
 CGcodeBedLevelProducer::CGcodeBedLevelProducer(CGcodeParser &parcer, std::function<bool(const std::string &str)> writefn,
-        const CProbeArea &probeArea) :
+        const CProbeAreaGenerator &AreaGenerator) :
 CGcodeBedLevelProducer(parcer, writefn,
-                CBedLevel(probeArea.getSizeX(), probeArea.getSizeY(), probeArea.getGrid(), probeArea.getZheighArray()))
+                CBedLevel(AreaGenerator.getSizeX(), AreaGenerator.getSizeY(), AreaGenerator.getGrid(), AreaGenerator.getZheighArray()))
 {
 }
 bool CGcodeBedLevelProducer::produceLine(const std::string &cmd, const tGCodeParams &par)

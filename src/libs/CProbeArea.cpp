@@ -10,11 +10,6 @@
 #include <sstream>
 using namespace std;
 
-std::vector<double> CProbeArea::getZheighArray() const
-{
-    return m_ZheighArray;
-}
-
 void CProbeArea::stop()
 {
     clear();
@@ -73,7 +68,7 @@ bool CProbeArea::positionCallback(string &result)
         {
             break;
         }
-        m_ZheighArray.at(m_AreaGenerator.getX() + m_AreaGenerator.getY() * (m_AreaGenerator.getSzX())) = zval;
+        m_AreaGenerator.setZheigh(zval);
         int16_t dX, dY;
         if (m_AreaGenerator.getNext(dX, dY))
         {
@@ -123,13 +118,7 @@ bool CProbeArea::run(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double level
         return false;
     }
     
-    const auto countX = ((sizeX + grid - 1) / grid) + 1;
-    const auto countY = ((sizeY + grid - 1) / grid) + 1;
-
-    const auto count = countX * countY;
-    m_ZheighArray.reserve(count);
-    m_ZheighArray.resize(count);
-    if (!m_AreaGenerator.init(countX, countY, grid))
+    if (!m_AreaGenerator.init(sizeX, sizeY, grid))
     {
         return false;
     }
