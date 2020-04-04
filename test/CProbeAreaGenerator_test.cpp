@@ -101,14 +101,14 @@ TEST_F(CProbeAreaGeneratorTest, test)
     ASSERT_TRUE(arr.check());
 }
 
-TEST_F(CProbeAreaGeneratorTest, line)
+TEST_F(CProbeAreaGeneratorTest, generator)
 {
     constexpr auto szX = 10;
-    constexpr auto szY = 10;
+    constexpr auto szY = 20;
     constexpr auto step = 1;
     CTestedArray<szX / step, szY / step> arr(step);
     CProbeAreaGenerator_line Generator;
-    ASSERT_TRUE(Generator.init(szX+1, szY+1));
+    ASSERT_TRUE(Generator.init(szX+1, szY+1,1));
     auto maxcount = (szX / step + 1) * (szY / step + 1);
     int16_t X = 0;
     int16_t Y = 0;
@@ -120,6 +120,10 @@ TEST_F(CProbeAreaGeneratorTest, line)
         maxcount--;
         X += dX;
         Y += dY;
+        ASSERT_TRUE(Generator.getX() <= szX);
+        ASSERT_TRUE(Generator.getY() <= szY);
+        ASSERT_TRUE(Generator.getX() >= 0);
+        ASSERT_TRUE(Generator.getY() >= 0);
         ASSERT_EQ(X, Generator.getX());
         ASSERT_EQ(Y, Generator.getY());
         ASSERT_FALSE(arr.get(X, Y)); //doubleset

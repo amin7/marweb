@@ -78,7 +78,7 @@ TEST_F(CProbeAreaTest, ok)
     con.addListener(area);
 
     ASSERT_EQ(area.getMode(), CProbeArea::paIdle);
-    EXPECT_TRUE(area.run(10, 10, 5, 1, 200, 20, false));
+    EXPECT_TRUE(area.run(10, 20, 5, 1, 200, 20, false));
     ASSERT_EQ(area.getMode(), CProbeArea::paRun);
 
     auto max_cmdcount = 100;
@@ -90,17 +90,17 @@ TEST_F(CProbeAreaTest, ok)
     }
     EXPECT_TRUE(max_cmdcount>0);
     EXPECT_EQ(area.getMode(), CMarlinRun::paDone);
-    EXPECT_EQ(area.m_ZheighArray.size(), 9);
-    for (const auto val : area.m_ZheighArray)
+    EXPECT_EQ(area.getZheighArray().size(), 15);
+for (const auto val : area.getZheighArray())
     {
         EXPECT_EQ(val, 1);
     }
 
-EXPECT_EQ(area.getSizeX(), 3);
-EXPECT_EQ(area.getSizeY(), 3);
+    EXPECT_EQ(area.getSizeX(), 10);
+    EXPECT_EQ(area.getSizeY(), 20);
     EXPECT_EQ(area.getGrid(), 5);
     auto ZheighArray = area.getZheighArray();
-    EXPECT_EQ(ZheighArray.size(), 9);
+    EXPECT_EQ(ZheighArray.size(), 15);
     for (const auto val : ZheighArray)
     {
         EXPECT_EQ(val, 1);

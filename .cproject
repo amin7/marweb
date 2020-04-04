@@ -26,10 +26,16 @@
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/include"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266mDNS/src"/>
+									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPUpdateServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SdFat/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/SPI"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock/include"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest/include"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/ArduinoJson_ID64/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include"/>
@@ -41,7 +47,6 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/EEPROM"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266AVRISP/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPClient/src"/>
-									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPUpdateServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266LLMNR"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266NetBIOS"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SSDP"/>
@@ -63,7 +68,7 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/tool-unity"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.922107295" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="PLATFORMIO=40201"/>
+									<listOptionValue builtIn="false" value="PLATFORMIO=40301"/>
 									<listOptionValue builtIn="false" value="ESP8266"/>
 									<listOptionValue builtIn="false" value="ARDUINO_ARCH_ESP8266"/>
 									<listOptionValue builtIn="false" value="ARDUINO_ESP8266_WEMOS_D1MINI"/>
@@ -87,10 +92,16 @@
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/include"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266mDNS/src"/>
+									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPUpdateServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SdFat/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/SPI"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock/include"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest/include"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/ArduinoJson_ID64/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include"/>
@@ -102,7 +113,6 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/EEPROM"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266AVRISP/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPClient/src"/>
-									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPUpdateServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266LLMNR"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266NetBIOS"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SSDP"/>
@@ -124,7 +134,7 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/tool-unity"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.1198905600" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="PLATFORMIO=40201"/>
+									<listOptionValue builtIn="false" value="PLATFORMIO=40301"/>
 									<listOptionValue builtIn="false" value="ESP8266"/>
 									<listOptionValue builtIn="false" value="ARDUINO_ARCH_ESP8266"/>
 									<listOptionValue builtIn="false" value="ARDUINO_ESP8266_WEMOS_D1MINI"/>
@@ -148,10 +158,16 @@
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/include"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266mDNS/src"/>
+									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPUpdateServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SdFat/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/SPI"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock/include"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest/include"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/ArduinoJson_ID64/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include"/>
@@ -163,7 +179,6 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/EEPROM"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266AVRISP/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPClient/src"/>
-									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPUpdateServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266LLMNR"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266NetBIOS"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SSDP"/>
@@ -185,7 +200,7 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/tool-unity"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.884639970" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="PLATFORMIO=40201"/>
+									<listOptionValue builtIn="false" value="PLATFORMIO=40301"/>
 									<listOptionValue builtIn="false" value="ESP8266"/>
 									<listOptionValue builtIn="false" value="ARDUINO_ARCH_ESP8266"/>
 									<listOptionValue builtIn="false" value="ARDUINO_ESP8266_WEMOS_D1MINI"/>
@@ -235,10 +250,16 @@
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/include"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266mDNS/src"/>
+									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPUpdateServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SdFat/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/SPI"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock/include"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest/include"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/ArduinoJson_ID64/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include"/>
@@ -250,7 +271,6 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/EEPROM"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266AVRISP/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPClient/src"/>
-									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPUpdateServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266LLMNR"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266NetBIOS"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SSDP"/>
@@ -272,7 +292,7 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/tool-unity"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.1743427839" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="PLATFORMIO=40201"/>
+									<listOptionValue builtIn="false" value="PLATFORMIO=40301"/>
 									<listOptionValue builtIn="false" value="ESP8266"/>
 									<listOptionValue builtIn="false" value="ARDUINO_ARCH_ESP8266"/>
 									<listOptionValue builtIn="false" value="ARDUINO_ESP8266_WEMOS_D1MINI"/>
@@ -296,10 +316,16 @@
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/include"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266mDNS/src"/>
+									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPUpdateServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SdFat/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/SPI"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock/include"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest/include"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/ArduinoJson_ID64/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include"/>
@@ -311,7 +337,6 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/EEPROM"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266AVRISP/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPClient/src"/>
-									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPUpdateServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266LLMNR"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266NetBIOS"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SSDP"/>
@@ -333,7 +358,7 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/tool-unity"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.2055633423" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="PLATFORMIO=40201"/>
+									<listOptionValue builtIn="false" value="PLATFORMIO=40301"/>
 									<listOptionValue builtIn="false" value="ESP8266"/>
 									<listOptionValue builtIn="false" value="ARDUINO_ARCH_ESP8266"/>
 									<listOptionValue builtIn="false" value="ARDUINO_ESP8266_WEMOS_D1MINI"/>
@@ -357,10 +382,16 @@
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/include"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266mDNS/src"/>
+									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPUpdateServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SdFat/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/SPI"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WebServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266WiFi/src"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock/include"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googlemock"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest/include"/>
+									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/googletest_ID5976/googletest"/>
 									<listOptionValue builtIn="false" value="D:/user/hobby/git/marweb/.pio/libdeps/d1_mini/ArduinoJson_ID64/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/include"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/tools/sdk/libc/xtensa-lx106-elf/include"/>
@@ -372,7 +403,6 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/EEPROM"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266AVRISP/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPClient/src"/>
-									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266HTTPUpdateServer/src"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266LLMNR"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266NetBIOS"/>
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/framework-arduinoespressif8266/libraries/ESP8266SSDP"/>
@@ -394,7 +424,7 @@
 									<listOptionValue builtIn="false" value="${USERPROFILE}/.platformio/packages/tool-unity"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.symbols.2122043341" name="Symbols" superClass="org.eclipse.cdt.build.core.settings.holder.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
-									<listOptionValue builtIn="false" value="PLATFORMIO=40201"/>
+									<listOptionValue builtIn="false" value="PLATFORMIO=40301"/>
 									<listOptionValue builtIn="false" value="ESP8266"/>
 									<listOptionValue builtIn="false" value="ARDUINO_ARCH_ESP8266"/>
 									<listOptionValue builtIn="false" value="ARDUINO_ESP8266_WEMOS_D1MINI"/>

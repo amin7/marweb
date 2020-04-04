@@ -25,9 +25,6 @@ class CProbeArea: public CMarlinRun {
     double m_levelDelta;
     uint16_t m_feedRateXY;
     uint16_t m_feedRateProbe;
-    uint16_t m_sizeX;
-    uint16_t m_sizeY;
-    uint16_t m_grid;
     std::vector<double> m_ZheighArray;
     CProbeAreaGenerator_line m_AreaGenerator;
     bool positionCallback(std::string &result);
@@ -35,15 +32,15 @@ class CProbeArea: public CMarlinRun {
 public:
     uint16_t getSizeX() const
     {
-        return m_sizeX;
+        return (m_AreaGenerator.getSzX() - 1) * m_AreaGenerator.getGrid();
     }
     uint16_t getSizeY() const
     {
-        return m_sizeY;
+        return (m_AreaGenerator.getSzY() - 1) * m_AreaGenerator.getGrid();
     }
     uint16_t getGrid() const
     {
-        return m_grid;
+        return m_AreaGenerator.getGrid();
     }
     std::vector<double> getZheighArray() const;
     void stop();
@@ -51,7 +48,6 @@ public:
     bool run(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double levelDelta, uint16_t feedRateXY, uint16_t feedRateProbe, bool doubleTouch);
 #ifdef UNIT_TEST
     FRIEND_TEST(CProbeAreaTest,elements);
-    FRIEND_TEST(CProbeAreaTest,ok);
 #endif
 };
 

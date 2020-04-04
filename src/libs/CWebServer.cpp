@@ -112,15 +112,15 @@ void CWebServer::handleProbesGet() {
     m_server.sendContent(jsonbeg.str().c_str());
 
     DBG_PRINTLN(ZheighArray.size())
-    auto add_comma = true;
+    auto add_comma = false;
     std::ostringstream row;
     for (auto val : ZheighArray)
     {
-        row << val;
         if (add_comma) {
             row << ",";
-            add_comma = false;
         }
+        add_comma = true;
+        row << val;
     }
     m_server.sendContent(row.str().c_str());
 

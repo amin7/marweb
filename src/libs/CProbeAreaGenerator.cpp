@@ -58,10 +58,11 @@ bool CProbeAreaGenerator_line::getNext(int16_t &dX, int16_t &dY)
     return true;
 }
 
-bool CProbeAreaGenerator_line::init(uint16_t szX, uint16_t szY)
+bool CProbeAreaGenerator_line::init(uint16_t szX, uint16_t szY, uint16_t grid)
 {
     m_szX = szX;
     m_szY = szY;
+    m_grid = grid;
     reset();
     return true;
 }
