@@ -114,7 +114,7 @@ TEST_F(CGcodeBedLevelProducerTest, xy)
     os_cmd = { };
     producer.clear();
     parser.addCmd("G1 X15 Y15");
-    EXPECT_EQ(os_cmd.str(), "G1 X3.536 Y3.536 Z0\nG1 X7.071 Y7.071 Z0\nG1 X10.607 Y10.607 Z0\nG1 X12.803 Y12.803 Z0\nG1 X15 Y15 Z0\n");
+    EXPECT_EQ(os_cmd.str(), "G1 X3 Y3 Z0\nG1 X6 Y6 Z0\nG1 X9 Y9 Z0\nG1 X12 Y12 Z0\nG1 X15 Y15 Z0\n");
 }
 
 TEST_F(CGcodeBedLevelProducerTest, misk)

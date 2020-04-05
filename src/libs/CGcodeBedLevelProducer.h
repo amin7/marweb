@@ -17,6 +17,7 @@
 class CGcodeBedLevelProducer: public CGcodeProducer {
     CBedLevel m_BedLevel;
     tControlState m_pre_state;
+    bool produceLineZmove(const std::string &cmd, const tGCodeParams &par);
     bool produceLine(const std::string &cmd, const tGCodeParams &par);
     public:
     static constexpr auto m_Ztolerance = 0.01; //if less - no z correction

@@ -19,7 +19,9 @@
 
 class CProbeArea: public CMarlinRun {
     private:
-    static constexpr auto end_gcode = "G91\nG0 F300 Z2";
+    static constexpr auto probe_first_distance = -0.5;
+    static constexpr auto beg_gcode = "M150 B255 P255 R255 U255";
+    static constexpr auto end_gcode = "M150 P255 U255\nG91\nG0 F300 Z2";
     static constexpr auto end_msg_done = "M117 probing done";
     static constexpr auto end_msg_stop = "M117 probing stop";
     double m_levelDelta;

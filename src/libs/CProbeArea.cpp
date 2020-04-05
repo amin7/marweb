@@ -129,9 +129,10 @@ bool CProbeArea::run(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double level
     m_feedRateProbe = feedRateProbe;
 //first
     ostringstream os_cmd;
+    os_cmd << beg_gcode << "\n";
     os_cmd << "G21\nG91\n";
     os_cmd << "G0 F" << m_feedRateProbe * 2 << " Z" << m_levelDelta << "\n";
-    os_cmd << "G38.2 F" << m_feedRateProbe << " Z" << m_levelDelta * -2;
+    os_cmd << "G38.2 F" << m_feedRateProbe << " Z" << m_levelDelta * probe_first_distance;
 
     if (!addCmd(os_cmd.str(),
             [&](string &result) -> bool

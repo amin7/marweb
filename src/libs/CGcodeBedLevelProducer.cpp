@@ -22,17 +22,19 @@ CGcodeBedLevelProducer(parcer, writefn,
                 CBedLevel(AreaGenerator.getSizeX(), AreaGenerator.getSizeY(), AreaGenerator.getGrid(), AreaGenerator.getZheighArray()))
 {
 }
+bool CGcodeBedLevelProducer::produceLineZmove(const std::string &cmd, const tGCodeParams &par) {
+    auto par_loc = par;
+    double corr;
+    if (!m_BedLevel.get_z_correction(m_state.point.getX(), m_state.point.getY(), corr))
+            {
+        ERR_LOG();
+        return false;
+    }
+    par_loc['Z'] = m_state.point.getZ() + corr;
+    return CGcodeProducer::produceCmd(cmd, par_loc);
+}
 bool CGcodeBedLevelProducer::produceLine(const std::string &cmd, const tGCodeParams &par)
 {
-    auto par_loc = par;
-    DBG_PRINT(m_state.point.getX());
-    DBG_PRINT(" ");
-    DBG_PRINT(m_state.point.getY());
-    DBG_PRINT(" ");
-    DBG_PRINT(m_state.point.getZ());
-    DBG_PRINT(" ");
-    DBG_PRINTLN(m_BedLevel.isInitOk());
-
     bool isXpresent = false;
     bool isYpresent = false;
     for (const auto attr : par)
@@ -46,35 +48,53 @@ bool CGcodeBedLevelProducer::produceLine(const std::string &cmd, const tGCodePar
             }
         }
     }
-    if (!isXpresent) {
-        par_loc.erase('X');
+
+    if (!isXpresent && !isYpresent) {
+        return produceLineZmove(cmd, par);
     }
-    if (!isYpresent) {
-        par_loc.erase('Y');
-    }
+
+    auto par_loc = par;
+    DBG_PRINT(m_state.point.getX());
+    DBG_PRINT(" ");
+    DBG_PRINT(m_state.point.getY());
+    DBG_PRINT(" ");
+    DBG_PRINT(m_state.point.getZ());
+    DBG_PRINT(" ");
+    DBG_PRINTLN(m_BedLevel.isInitOk());
 
     auto beg_x = m_pre_state.point.getX();
     auto beg_y = m_pre_state.point.getY();
-    auto beg_z = m_pre_state.point.getZ();
+    auto len = hypot(m_state.point.getX() - beg_x, m_state.point.getY() - beg_y);
+    if (0 == len) { //move to same ccordinate
+        return produceLineZmove(cmd, par);
+    }
 
-    do
+    double correct_initial;
+    if (!m_BedLevel.get_z_correction(beg_x, beg_y, correct_initial)) {
+        ERR_LOG();
+        return false;
+    }
+    auto beg_z = m_pre_state.point.getZ() + correct_initial;
+
+    const auto step_div = ceil(len / m_BedLevel.getGrid());
+    const auto dx = (m_state.point.getX() - beg_x) / step_div;
+    const auto dy = (m_state.point.getY() - beg_y) / step_div;
+    const auto dz = (m_state.point.getZ() - beg_z) / step_div;
+    auto f_done = false;
+    while (!f_done)
     {
-        const auto len = hypot(beg_x - m_state.point.getX(), beg_y - m_state.point.getY());
         if (len <= m_BedLevel.getGrid())
         { //last
             beg_x = m_state.point.getX();
             beg_y = m_state.point.getY();
             beg_z = m_state.point.getZ();
-        } else if (len <= m_BedLevel.getGrid() * 2)
-        { //divide on 2
-            beg_x += (m_state.point.getX() - beg_x) / 2;
-            beg_y += (m_state.point.getY() - beg_y) / 2;
-            beg_z += (m_state.point.getZ() - beg_z) / 2;
+            f_done = true;
         } else
         { // step on grid
-            beg_x += (m_state.point.getX() - beg_x) * m_BedLevel.getGrid() / len;
-            beg_y += (m_state.point.getY() - beg_y) * m_BedLevel.getGrid() / len;
-            beg_z += (m_state.point.getZ() - beg_z) * m_BedLevel.getGrid() / len;
+            beg_x += dx;
+            beg_y += dy;
+            beg_z += dz;
+            len -= m_BedLevel.getGrid();
         }
 
         double correction;
@@ -94,8 +114,7 @@ bool CGcodeBedLevelProducer::produceLine(const std::string &cmd, const tGCodePar
         {
             return false;
         }
-    } while (beg_x != m_state.point.getX() || beg_y != m_state.point.getY() || beg_z != m_state.point.getZ());
-
+    };
     return true;
 }
 
