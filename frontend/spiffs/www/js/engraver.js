@@ -64,10 +64,16 @@ function engraver_probeStop(){
     SendGetHttp(url,on_httpStatusResponce,engraver_ResultError);
 }
 
+function engraver_GCodeLevelMod_resp(response){
+    var status={};
+    status.fsChanged=true;
+    on_statusUpdate(status);
+
+}
 function engraver_GCodeLevelMod(filename){
     if(filename!=""){
         url="/levelmod?file="+filename;
-        SendGetHttp(url);
+        SendGetHttp(url,engraver_GCodeLevelMod_resp,engraver_ResultError);
     }
 }
 

@@ -25,6 +25,7 @@
 
 	{"entry":"/gcodeInfo?file=/test/test1"		,"inline":"{\"dimention\":{\"min\":{\"x\":0,\"y\":0,\"z\":0},\"max\":{\"x\":50,\"y\":20,\"z\":2}}}" ,"type":"application/json"},
 	{"entry":"/gcodeInfo?file=/file"		,"inline":"{\"dimention\":{\"max\":{\"x\":30.48,\"y\":71.12,\"z\":25.4},\"min\":{\"x\":0,\"y\":0,\"z\":-0.8128}},\"lineTotal\":150,\"lineProcessed\":150}","type":"application/json"},
+        {"entry":"/levelmod?file=/file"		       ,"inline":"{\"addfiles\":[[\"file_\",0,12323]]}","type":"application/json"},
 {}
 ]
 }

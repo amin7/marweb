@@ -174,7 +174,10 @@ function UploadProgressDisplay(oEvent){
 
 function Uploadsuccess(imp,response){
     holder_filelist.innerHTML += "done";
-    imp.refresh();
+//    imp.refresh();
+    var status={};
+    status.fsChanged=true;
+    on_statusUpdate(status);
 }
 
 function Uploadfailed(imp,errorcode, response){    
@@ -204,11 +207,14 @@ function setActiveState(id,isActive) {
     }
 }
 
-function fsbrowser_UpdateSDcontrolStatus(status){
+function fsbrowser_UpdateStatus(status){
     if((typeof status.stateSDcontrol)!='undefined'){
         setActiveState('SDcontrol_auto',(status.stateSDcontrol==SDcontrolMode_auto));
         setActiveState('SDcontrol_esp',(status.stateSDcontrol==SDcontrolMode_esp));
         setActiveState('SDcontrol_marlin',(status.stateSDcontrol==SDcontrolMode_marlin));
+    }
+    if((typeof status.fsChanged)!='undefined'){
+        fsbrowser_impl.refresh();
     }
 }
 

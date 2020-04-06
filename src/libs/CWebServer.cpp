@@ -337,8 +337,12 @@ void CWebServer::handleLevelMod()
     gcode.close();
     gcode_leveled.close();
     m_sdCnt.setESPTimeout();
-    webRetResult(m_server, er_ok);
-
+    std::string fileList = "{\"addfiles\":[[\"";
+    fileList += leveledName;
+    fileList += "\",0,";
+    fileList += to_string(gcode_leveled.fileSize());
+    fileList += "]]}";
+    m_server.send(200, "application/json", fileList.c_str());
 }
 
 void CWebServer::getStatus(JsonObject &root) const
