@@ -132,6 +132,7 @@ bool CProbeArea::run(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double level
     os_cmd << beg_gcode << "\n";
     os_cmd << "G21\nG91\n";
     os_cmd << "G0 F" << m_feedRateProbe * 2 << " Z" << probe_first_distance << "\n";
+    os_cmd << gcode_EnableSteppers << "\n";
     os_cmd << "G38.2 F" << m_feedRateProbe << " Z" << probe_first_distance * -2;
 
     if (!addCmd(os_cmd.str(),

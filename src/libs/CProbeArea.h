@@ -16,6 +16,7 @@
 #include "gtest/gtest.h"
 #endif
 #include "CMarlinConCMDListener.h"
+#include "gcode.h"
 
 class CProbeArea: public CMarlinRun {
     private:
@@ -37,7 +38,7 @@ public:
     }
     void stop();
     static bool isErrorResult(const std::string &result);
-    bool run(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double levelDelta, uint16_t feedRateXY, uint16_t feedRateProbe, bool doubleTouch);
+    bool r un(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double levelDelta, uint16_t feedRateXY, uint16_t feedRateProbe, bool doubleTouch);
 #ifdef UNIT_TEST
     FRIEND_TEST(CProbeAreaTest,elements);
 #endif
