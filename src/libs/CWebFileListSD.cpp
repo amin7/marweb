@@ -28,7 +28,7 @@ String CWebFileListSD::normalizePath(const String &path){
 
 void CWebFileListSD::getFileList()
 {
-    if (!m_sdCnt.requestSDcontrol())
+    if (!m_sdCnt.isOwned())
     {
         webRetResult(server, err_MarlinRead);
         return;
@@ -98,7 +98,6 @@ void CWebFileListSD::getFileList()
         } while (0);
         server.sendContent("}");
         server.sendContent("");
-        m_sdCnt.setESPTimeout();
         return;
     }
     if (server.hasArg("delete"))
@@ -132,7 +131,7 @@ void CWebFileListSD::handleFileDownload()
         webRetResult(server, er_no_parameters);
         return;
     }
-    if (!m_sdCnt.requestSDcontrol())
+    if (!m_sdCnt.isOwned())
     {
         webRetResult(server, err_MarlinRead);
         return;
@@ -170,7 +169,6 @@ void CWebFileListSD::handleFileDownload()
         send += numRead;
     }
     rFile.close();
-    m_sdCnt.setESPTimeout();
     if (fileSize != send)
     {
         DBG_PRINT("=");
@@ -180,7 +178,7 @@ void CWebFileListSD::handleFileDownload()
 
 void CWebFileListSD::handleFileUpload()
 {
-    if (!m_sdCnt.requestSDcontrol())
+    if (!m_sdCnt.isOwned())
     {
         webRetResult(server, err_MarlinRead);
         return;

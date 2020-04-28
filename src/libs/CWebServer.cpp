@@ -11,47 +11,32 @@
 #include "CBedLevel.h"
 #include "logs.h"
 
-typedef enum {
-    file_No = 0,
-    file_Present,
-    file_PresentGZ
-} tExistsFile;
-
-tExistsFile isExistsFile(const String &path)
-{
-    const auto pathWithGz = path + ".gz";
-    if (SPIFFS.exists(pathWithGz))
-        return file_PresentGZ;
-    if (SPIFFS.exists(path))
-        return file_Present;
-    return file_No;
-}
-
 bool CWebServer::handleFileRead(const String &path)
 {
     DBG_PRINT(F("handleFileRead: "));
     DBG_PRINT(path);
     DBG_PRINT(" ");
-    const auto contentType = getMimeType(path);
-    
-    File file;
-    switch (isExistsFile(path)) {
-        case file_No:
-            DBG_PRINTLN("no file")
-            return false;
-        case file_Present:
-            file = SPIFFS.open(path, "r");
-            break;
-        case file_PresentGZ:
-            file = SPIFFS.open(path + ".gz", "r");
-            break;
-        default:
-            return false;
+
+    const auto pathWithGz = path + ".gz";
+    const String *pPath = nullptr;
+
+    if (SPIFFS.exists(pathWithGz)) {
+        pPath = &pathWithGz;
+    } else if (SPIFFS.exists(path))
+    {
+        pPath = &path;
+    } else {
+        DBG_PRINTLN("no file");
     }
-    const auto count = m_server.streamFile(file, contentType);
-    DBG_PRINTLN(count);
-    file.close();
-    return true;
+    if (pPath) {
+        const auto contentType = getMimeType(path);
+        auto file = SPIFFS.open(*pPath, "r");
+        const auto count = m_server.streamFile(file, contentType);
+        DBG_PRINTLN(count);
+        file.close();
+        return true;
+    }
+    return false;
 }
 
 void CWebServer::handleFile()
@@ -62,17 +47,11 @@ void CWebServer::handleFile()
     {
         path = "/index.html";
     }
-
-    if (file_No != isExistsFile(path))
-    {
-        handleFileRead(path);
+    if (handleFileRead(path)) {
         return;
     }
 
-    path = "/www" + path;
-    if (file_No != isExistsFile(path))
-    {
-        handleFileRead(path);
+    if (handleFileRead("/www" + path)) {
         return;
     }
 
@@ -191,7 +170,7 @@ void CWebServer::handleGetGCodeInfo()
         return;
     }
 
-    if (!m_sdCnt.requestSDcontrol())
+    if (!m_sdCnt.isOwned())
     {
         webRetResult(m_server, err_MarlinRead);
         return;
@@ -262,7 +241,7 @@ void CWebServer::handleGetGCodeInfo()
 
 void CWebServer::handleLevelMod()
 {
-    if (!m_sdCnt.requestSDcontrol())
+    if (!m_sdCnt.isOwned())
     {
         webRetResult(m_server, err_MarlinRead);
         return;
@@ -335,7 +314,6 @@ void CWebServer::handleLevelMod()
     }
     gcode.close();
     gcode_leveled.close();
-    m_sdCnt.setESPTimeout();
     std::string fileList = "{\"addfiles\":[[\"";
     fileList += leveledName;
     fileList += "\",0,";

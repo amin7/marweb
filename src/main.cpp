@@ -1,4 +1,5 @@
 #define DESTRUCTOR_CLOSES_FILE 1
+#define SPIFFS_CACHE 7
 #include <arduino.h>
 #include <ESP8266WiFi.h>
 #include <sdios.h>
@@ -27,7 +28,6 @@ constexpr auto pin_SD_CS = D2;
 constexpr auto pin_MISO = D6;
 constexpr auto pin_MOSI = D7;
 constexpr auto pin_SCLK = D5;
-constexpr auto pin_CS_SENSE = D1;
 constexpr auto pin_CARD_INSERTED = D0;
 constexpr auto pin_START_DEFAULT_CFG = D3;
 
@@ -68,22 +68,30 @@ class CMarlinCon_impl: public CMarlinCon
         return std::string(buffer);
     }
 }MarlinCon;
-ICACHE_RAM_ATTR void cs_sense_isr();
-class CManageSDControl_impl: public CManageSDControl, public CStatus, public CMarlinCon_Listener_IF {
-//put in gfile "M118 A1 action:setStateSDcontrolMarlin" to activate it
+
+class CMarlinCmd: public CMarlinCon_Listener_IF {
+    CManageSDControl &m_SDControl;
+    //put in gfile "M118 A1 action:setStateSDcontrolMarlin" to activate it
     static constexpr auto fl_setToMarlin = "// action:setStateSDcontrolMarlin\r";
-    void pushLine(const std::string &line) {
-        //catch if start print
-        if (sdStateMarlin != getStateSDcontrol()) {
-            if (0 == line.compare(fl_setToMarlin)) {
-                setStateSDcontrol(sdStateMarlin);
-            }
+void pushLine(const std::string &line) {
+    //catch if start print
+        if (m_SDControl.isOwned()) {
+        if (0 == line.compare(fl_setToMarlin)) {
+                m_SDControl.returnSD();
         }
     }
-    std::string getCmd() {
-        return "";
+}
+std::string getCmd() {
+    return "";
+}
+public:
+    CMarlinCmd(CManageSDControl &SDControl) :
+            m_SDControl(SDControl) {
     }
-    bool takeBus()
+};
+
+class CManageSDControl_impl: public CManageSDControl, public CStatus {
+    bool takeSD_impl() override
     {
         digitalWrite(pin_CARD_INSERTED, HIGH); //card_eject
         LED_ON();
@@ -105,7 +113,7 @@ class CManageSDControl_impl: public CManageSDControl, public CStatus, public CMa
         ERR_LOG("sd initError");
         return false;
     }
-    void returnBus()
+    void returnSD_impl() override
     {
         DBG_PRINTLN("returnBus");
         pinMode(pin_MISO, INPUT);
@@ -116,31 +124,17 @@ class CManageSDControl_impl: public CManageSDControl, public CStatus, public CMa
         digitalWrite(pin_CARD_INSERTED, LOW); //card_insert
     }
 public:
-    void setup() {
-        // ------------------------
-        // ----- GPIO -------
-        // Detect when other master uses SPI bus
-        pinMode(pin_CS_SENSE, INPUT);
-        pinMode(pin_START_DEFAULT_CFG, INPUT);
-        pinMode(pin_CARD_INSERTED, OUTPUT);
-        pinMode(LED_BUILTIN, OUTPUT);
-        attachInterrupt(pin_CS_SENSE, ::cs_sense_isr, RISING);        // marlin release CS
-        CManageSDControl::setup();
-    }
+
   void getStatus(JsonObject &root) const override
   {
-    root["sdmode"] = static_cast<unsigned>(getStateSDcontrol());
+        root["sdmode"] = static_cast<unsigned>(isOwned());
   }
 } sdCnt;
 
 CWebFileListSD FileList(serverWeb, sdFat, sdCnt);
 CWebServer webHandelrs(serverWeb, sdCnt);
+CMarlinCmd marlinCmd(sdCnt);
 // ------------------------
-
-ICACHE_RAM_ATTR void cs_sense_isr()
-{
-    sdCnt.cs_marlin_isr();
-}
 
 void get_configs()
 {
@@ -189,8 +183,8 @@ void http_about()
     SPIFFS_info(stream_about);
     serverWeb.sendContent(about);
     about = "\n";
-    coutput << "getStateSDcontrol " << static_cast<unsigned>(sdCnt.getStateSDcontrol()) << endl;
-    if (sdCnt.requestSDcontrol())
+    coutput << "isOwnedSD " << static_cast<unsigned>(sdCnt.isOwned()) << endl;
+    if (sdCnt.isOwned())
     {
         sdcard_info(sdFat, stream_about);
     } else
@@ -226,10 +220,14 @@ void setStateSDcontrol() {
     DBG_PRINTLN("/setStateSDcontrol");
     if (serverWeb.hasArg("mode"))
     {
-        const auto mode = static_cast<tStateSDcontrol>(serverWeb.arg("mode").toInt());
+        const auto mode = static_cast<bool>(serverWeb.arg("mode").toInt());
         DBG_PRINT("mode ");
         DBG_PRINTLN(mode);
-        sdCnt.setStateSDcontrol(mode);
+        if (mode) {
+            sdCnt.takeSD();
+        } else {
+            sdCnt.returnSD();
+        }
     }
     http_status();
 }
@@ -281,19 +279,22 @@ void setupWeb()
 }
 #ifndef UNIT_TEST
 void setup() {
+    pinMode(pin_START_DEFAULT_CFG, INPUT);
+    pinMode(pin_CARD_INSERTED, OUTPUT);
+    pinMode(LED_BUILTIN, OUTPUT);
+
     Serial.begin(SERIAL_BAUND);
     Serial.setRxBufferSize(RXBUFFERSIZE);
     sdCnt.setup();
     SPIFFS.begin();
     get_configs();
-
     otaUpdater.setup(&serverWeb, ota_update_path, ota_username, ota_password);
     setupWeb();
     MDNS.addService("http", "tcp", SERVER_PORT_WEB);
 
     MarlinCon.addListener(WebMarlinCon);
     MarlinCon.addListener(webHandelrs.m_ProbeArea);
-    MarlinCon.addListener(sdCnt);
+    MarlinCon.addListener(marlinCmd);
 
     // ----- can't send to uartd arduino mega before. it can cause to activate bootloader
 #ifdef DEBUG_STREAM
@@ -317,7 +318,6 @@ void setup() {
 // ------------------------
 void loop() {
     MDNS.update();
-    sdCnt.loop();
     serverWeb.handleClient();
     MarlinCon.loop();
 }

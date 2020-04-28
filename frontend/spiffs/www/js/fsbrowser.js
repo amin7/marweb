@@ -209,7 +209,6 @@ function setActiveState(id,isActive) {
 
 function fsbrowser_UpdateStatus(status){
     if((typeof status.stateSDcontrol)!='undefined'){
-        setActiveState('SDcontrol_auto',(status.stateSDcontrol==SDcontrolMode_auto));
         setActiveState('SDcontrol_esp',(status.stateSDcontrol==SDcontrolMode_esp));
         setActiveState('SDcontrol_marlin',(status.stateSDcontrol==SDcontrolMode_marlin));
     }

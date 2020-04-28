@@ -32,6 +32,5 @@ var config={
     }
 };
 
-const SDcontrolMode_auto=0;
 const SDcontrolMode_esp=1;
-const SDcontrolMode_marlin=2;
+const SDcontrolMode_marlin=0;

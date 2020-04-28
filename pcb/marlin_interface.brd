@@ -1780,7 +1780,6 @@ einem neuen Namen ab.</description>
 <wire x1="13" y1="5.5" x2="12.7" y2="5.08" width="0.6" layer="1"/>
 </signal>
 <signal name="N$12">
-<contactref element="U$1" pad="JP2.3"/>
 <contactref element="R6" pad="1"/>
 <contactref element="U$1" pad="JP2.4"/>
 <wire x1="20" y1="19" x2="18" y2="17" width="0.6" layer="1"/>
@@ -1789,7 +1788,6 @@ einem neuen Namen ab.</description>
 <wire x1="18" y1="17" x2="17.78" y2="16.51" width="0.6" layer="1"/>
 <wire x1="26.5" y1="19" x2="26.67" y2="19.05" width="0.6" layer="1"/>
 <wire x1="24" y1="19" x2="26.5" y2="21.5" width="0.6" layer="1"/>
-<wire x1="26.5" y1="21.5" x2="26.67" y2="21.59" width="0.6" layer="1"/>
 </signal>
 <signal name="N$13">
 <contactref element="R6" pad="2"/>

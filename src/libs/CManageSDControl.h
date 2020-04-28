@@ -5,49 +5,32 @@
  *      Author: family
  */
 
-#ifndef LIBS_CMANAGESDCONTROL_H_
-#define LIBS_CMANAGESDCONTROL_H_
-typedef enum {
-    sdStateAuto = 0,
-    sdStateEsp,
-    sdStateMarlin
-} tStateSDcontrol;
-
-constexpr auto SPI_BLOCKOUT_PERIOD = 10000UL;
-constexpr auto SPI_START_BLOCKOUT_PERIOD = 5000UL;
-constexpr auto CHANGE_NOTICE_TIMEOUT = 30000L;
+#pragma once
 
 class CManageSDControl {
 private:
-  bool m_isESPuse = false;
-  bool isESPuse() const
-  {
-    return m_isESPuse;
-  }
-  void setESPuse(bool use)
-      {
-    m_isESPuse = use;
-  }
-    virtual bool takeBus()=0;
-    virtual void returnBus()=0;
-  
-protected:
-    volatile unsigned long m_MarlinReleaseTimeout = 0;
-    unsigned long m_ESPReleaseTimeout = 0;
-  tStateSDcontrol stateSDcontrol = sdStateAuto;
+    bool m_isOwned = false;
+    virtual bool takeSD_impl()=0;
+    virtual void returnSD_impl()=0;
 
 public:
-    bool setStateSDcontrol(tStateSDcontrol mode);
-    tStateSDcontrol getStateSDcontrol() const
-    {
-        return stateSDcontrol;
+    bool takeSD() {
+        if (takeSD_impl()) {
+            m_isOwned = true;
+            return true;
+        }
+        returnSD();
+        return false;
     }
-    bool requestSDcontrol();
-    void cs_marlin_isr();
-    bool isMarlinUseSPI() const;
-    void setup();
-    void loop();
-    void setESPTimeout();
+    void returnSD() {
+        m_isOwned = false;
+        returnSD_impl();
+    }
+    bool isOwned() const {
+        return m_isOwned;
+    }
+    void setup() {
+        returnSD();
+    }
 };
 
-#endif /* LIBS_CMANAGESDCONTROL_H_ */
