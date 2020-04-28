@@ -6,8 +6,12 @@
  */
 
 #pragma once
+#include <map>
 #include <vector>
 #include <string>
+#include <functional>
+#include "misk.h"
+#include "logs.h"
 #ifdef UNIT_TEST
 #include "gtest/gtest.h"
 #endif
@@ -39,5 +43,25 @@ protected:
     std::string m_buff;
 public:
     virtual void pushLine(const std::string &line);
+};
+
+class CMarlinEspCmd: public CMarlinCon_Listener_IF {
+    std::map<const char*, std::function<void()>, CompareCStrings> m_EspCmd;
+    void pushLine(const std::string &line) {
+        auto handler = m_EspCmd.find(line.c_str());
+        if (m_EspCmd.end() != handler)
+                {
+            DBG_PRINT(" handlers:");
+            DBG_PRINTLN(line.c_str());
+            handler->second();
+        }
+        }
+    std::string getCmd() {
+        return "";
+    }
+public:
+    void addHandler(const char *cmd, std::function<void()> handler) {
+        m_EspCmd[cmd] = handler;
+    }
 };
 

@@ -69,27 +69,6 @@ class CMarlinCon_impl: public CMarlinCon
     }
 }MarlinCon;
 
-class CMarlinCmd: public CMarlinCon_Listener_IF {
-    CManageSDControl &m_SDControl;
-    //put in gfile "M118 A1 action:setStateSDcontrolMarlin" to activate it
-    static constexpr auto fl_setToMarlin = "// action:setStateSDcontrolMarlin\r";
-void pushLine(const std::string &line) {
-    //catch if start print
-        if (m_SDControl.isOwned()) {
-        if (0 == line.compare(fl_setToMarlin)) {
-                m_SDControl.returnSD();
-        }
-    }
-}
-std::string getCmd() {
-    return "";
-}
-public:
-    CMarlinCmd(CManageSDControl &SDControl) :
-            m_SDControl(SDControl) {
-    }
-};
-
 class CManageSDControl_impl: public CManageSDControl, public CStatus {
     bool takeSD_impl() override
     {
@@ -133,7 +112,7 @@ public:
 
 CWebFileListSD FileList(serverWeb, sdFat, sdCnt);
 CWebServer webHandelrs(serverWeb, sdCnt);
-CMarlinCmd marlinCmd(sdCnt);
+CMarlinEspCmd EspCmd;
 // ------------------------
 
 void get_configs()
@@ -292,9 +271,15 @@ void setup() {
     setupWeb();
     MDNS.addService("http", "tcp", SERVER_PORT_WEB);
 
+    EspCmd.addHandler("// action:setStateSDcontrolMarlin\r", [] {
+        if (sdCnt.isOwned()) {
+            sdCnt.returnSD();
+        }
+    });
+
     MarlinCon.addListener(WebMarlinCon);
     MarlinCon.addListener(webHandelrs.m_ProbeArea);
-    MarlinCon.addListener(marlinCmd);
+    MarlinCon.addListener(EspCmd);
 
     // ----- can't send to uartd arduino mega before. it can cause to activate bootloader
 #ifdef DEBUG_STREAM

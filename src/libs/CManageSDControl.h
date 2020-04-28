@@ -32,5 +32,8 @@ public:
     void setup() {
         returnSD();
     }
+    virtual ~CManageSDControl() {
+    }
+    ;
 };
 
