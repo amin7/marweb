@@ -55,21 +55,20 @@ CWebMarlinCon WebMarlinCon(serverWeb);
 
 class CMarlinCon_impl: public CMarlinCon
 {
+    static constexpr auto CMD_SZ = 124;
     virtual void write(const std::string data) override
     {
         Serial.println(data.c_str());
     }
     virtual std::string read() override
     {
-        std::string data;
-        while (Serial.available())
-        {
-            data += Serial.read();
-        }
-        return data;
+        char buffer[CMD_SZ + 1];
+        const auto read_sz = Serial.read(buffer, CMD_SZ);
+        buffer[read_sz] = 0;
+        return std::string(buffer);
     }
 }MarlinCon;
-
+ICACHE_RAM_ATTR void cs_sense_isr();
 class CManageSDControl_impl: public CManageSDControl, public CStatus, public CMarlinCon_Listener_IF {
 //put in gfile "M118 A1 action:setStateSDcontrolMarlin" to activate it
     static constexpr auto fl_setToMarlin = "// action:setStateSDcontrolMarlin\r";
@@ -117,6 +116,17 @@ class CManageSDControl_impl: public CManageSDControl, public CStatus, public CMa
         digitalWrite(pin_CARD_INSERTED, LOW); //card_insert
     }
 public:
+    void setup() {
+        // ------------------------
+        // ----- GPIO -------
+        // Detect when other master uses SPI bus
+        pinMode(pin_CS_SENSE, INPUT);
+        pinMode(pin_START_DEFAULT_CFG, INPUT);
+        pinMode(pin_CARD_INSERTED, OUTPUT);
+        pinMode(LED_BUILTIN, OUTPUT);
+        attachInterrupt(pin_CS_SENSE, ::cs_sense_isr, RISING);        // marlin release CS
+        CManageSDControl::setup();
+    }
   void getStatus(JsonObject &root) const override
   {
     root["sdmode"] = static_cast<unsigned>(getStateSDcontrol());
@@ -138,41 +148,16 @@ void get_configs()
     auto wifi_pwd_ = (String) DEF_WIFI_PWD;
     auto wifi_mode_ = DEF_WIFI_MODE;
     auto wifi_ssid_ = (String) DEF_SSID_NAME;
-    unsigned long to = 0;
-    while (sdCnt.isMarlinUseSPI())
+//todo rewrite to use stored data in esp
+    DBG_PRINTLN(F("SPIFFS.open "));
+    auto wifi_conf_spiffs = SPIFFS.open(config_file_spiffs, "r");
+    if (wifi_conf_spiffs)
     {
-        yield();
-#ifdef DEBUG_STREAM
-        if (millis() > to)
-        {
-            to = millis() + 300;
-            DBG_PRINT('.');
-        }
-#endif
-    }
-    DBG_PRINTLN();
-    sdCnt.requestSDcontrol();
-    DBG_PRINT(F("config_file "));
-    DBG_PRINTLN(config_file);
-
-    auto wifi_conf = sdFat.open(config_file);
-    // check for open error
-    if (wifi_conf)
-    {
-        get_config(wifi_conf, wifi_ssid_, wifi_pwd_, wifi_host_name_, wifi_mode_);
-        wifi_conf.close();
+        get_config(wifi_conf_spiffs, wifi_ssid_, wifi_pwd_, wifi_host_name_, wifi_mode_);
+        wifi_conf_spiffs.close();
     } else
     {
-        DBG_PRINTLN(F("SPIFFS.open "));
-        auto wifi_conf_spiffs = SPIFFS.open(config_file_spiffs, "r");
-        if (wifi_conf_spiffs)
-        {
-            get_config(wifi_conf_spiffs, wifi_ssid_, wifi_pwd_, wifi_host_name_, wifi_mode_);
-            wifi_conf_spiffs.close();
-        } else
-        {
-            ERR_LOG(F("no wifiConfig"));
-        }
+        ERR_LOG(F("no wifiConfig"));
     }
 
     setup_wifi(wifi_ssid_, wifi_pwd_, wifi_host_name_, wifi_mode_);
@@ -190,7 +175,7 @@ void http_about()
 
     coutput << "Compiled :" << __DATE__ << " " << __TIME__ << endl;
     coutput << "Serial Speed " << SERIAL_BAUND << " buff " << RXBUFFERSIZE << endl;
-
+    coutput << getResetInfo().c_str() << endl;
     coutput << "RSSI " << WiFi.RSSI() << endl;
     
 #ifdef DEBUG_STREAM
@@ -232,6 +217,9 @@ void http_status() {
     webHandelrs.getStatus(json_ProbeArea);
     serverWeb.sendContent(status.as<String>());
     serverWeb.sendContent("");
+    DBG_PRINT("memoryUsage ");
+    DBG_PRINTLN(status.memoryUsage());
+
 }
 
 void setStateSDcontrol() {
@@ -293,18 +281,10 @@ void setupWeb()
 }
 #ifndef UNIT_TEST
 void setup() {
-    // ------------------------
-    // ----- GPIO -------
-    // Detect when other master uses SPI bus
-    pinMode(pin_CS_SENSE, INPUT);
-    pinMode(pin_START_DEFAULT_CFG, INPUT);
-    pinMode(pin_CARD_INSERTED, OUTPUT);
-    pinMode(LED_BUILTIN, OUTPUT);
-    attachInterrupt(pin_CS_SENSE, cs_sense_isr, RISING);// marlin release CS
     Serial.begin(SERIAL_BAUND);
     Serial.setRxBufferSize(RXBUFFERSIZE);
-    SPIFFS.begin();
     sdCnt.setup();
+    SPIFFS.begin();
     get_configs();
 
     otaUpdater.setup(&serverWeb, ota_update_path, ota_username, ota_password);

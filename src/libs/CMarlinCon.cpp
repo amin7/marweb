@@ -15,22 +15,23 @@ void CMarlinCon::addListener(CMarlinCon_Listener_IF &listener)
 }
 
 void CMarlinCon::loop(){
-    auto in = read();
-    while (in.length())
+    const auto in = read();
+    std::string::size_type Pos = 0;
+    while (Pos < in.length())
     {
-        auto lineEnd = in.find_first_of('\n');
-        m_line += in.substr(0, lineEnd);
+        const auto lineEnd = in.find_first_of('\n', Pos);
         if (string::npos != lineEnd)
         {
-            //catch \n
+            m_line.append(in.begin() + Pos, in.begin() + lineEnd);
             for (auto listener : m_listeners)
             {
                 listener->pushLine(m_line);
             }
             m_line.clear();
-            in = in.substr(lineEnd + 1);
+            Pos = lineEnd + 1;
         } else
         {
+            m_line.append(in.begin() + Pos, in.end());
             break;
         }
     }

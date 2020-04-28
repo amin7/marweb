@@ -38,7 +38,7 @@ public:
     }
     void stop();
     static bool isErrorResult(const std::string &result);
-    bool r un(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double levelDelta, uint16_t feedRateXY, uint16_t feedRateProbe, bool doubleTouch);
+    bool run(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double levelDelta, uint16_t feedRateXY, uint16_t feedRateProbe, bool doubleTouch);
 #ifdef UNIT_TEST
     FRIEND_TEST(CProbeAreaTest,elements);
 #endif

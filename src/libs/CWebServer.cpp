@@ -99,7 +99,6 @@ void CWebServer::handleProbesGet() {
     jsonbeg << "\"zHeigh\": [";
     m_server.sendContent(jsonbeg.str().c_str());
 
-    DBG_PRINTLN(ZheighArray.size())
     auto add_comma = false;
     std::ostringstream row;
             for (auto val : generator.getZheighArray())

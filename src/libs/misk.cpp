@@ -11,6 +11,7 @@
 #include <ArduinoJson.h>
 #include "fatlib\ArduinoStream.h"
 #include <stdio.h>
+#include <sstream>
 using namespace sdfat;
 
 ostream& operator<<(ostream &stream, const String &str)
@@ -289,7 +290,54 @@ bool isExtMach(const std::string &name, const std::string &ext)
     }
     return true;
 }
+std::string getResetInfo() {
+    std::ostringstream info;
+    const auto rst_info = system_get_rst_info();
+    info << "rst_info " << rst_info->reason << ":";
+    switch (rst_info->reason) {
+        case REASON_DEFAULT_RST:
+            info << "REASON_DEFAULT_RST";
+            break;
+        case REASON_WDT_RST: /* hardware watch dog reset */
+            info << "REASON_WDT_RST";
+            break;
+        case REASON_EXCEPTION_RST: /* exception reset, GPIO status won’t change */
+            info << "REASON_EXCEPTION_RST";
+            break;
+        case REASON_SOFT_WDT_RST: /* software watch dog reset, GPIO status won’t change */
+            info << "REASON_SOFT_WDT_RST";
+            break;
+        case REASON_SOFT_RESTART: /* software restart ,system_restart , GPIO status won’t change */
+            info << "REASON_SOFT_RESTART";
+            break;
+        case REASON_DEEP_SLEEP_AWAKE: /* wake up from deep-sleep */
+            info << "REASON_DEEP_SLEEP_AWAKE";
+            break;
+        case REASON_EXT_SYS_RST:/* external system reset */
+            info << "REASON_EXT_SYS_RST";
+            break;
+        default:
+            info << "unknow";
+            break;
+    }
+    if (rst_info->reason == REASON_WDT_RST ||
+            rst_info->reason == REASON_EXCEPTION_RST ||
+            rst_info->reason == REASON_SOFT_WDT_RST) {
+        if (rst_info->reason == REASON_EXCEPTION_RST) {
+            info << " exccause " << rst_info->exccause;
 
+        }
+
+        info << " epc1=" << std::hex << rst_info->epc1;
+        info << ",epc2=" << std::hex << rst_info->epc2;
+        info << ",epc3=" << std::hex << rst_info->epc3;
+        info << ",excvaddr=" << std::hex << rst_info->excvaddr;
+        info << ",depc=" << std::hex << rst_info->depc;
+        //The   address of  the last    crash   is  printed,    which   is  used    to debug garbled output.
+    }
+    info << std::endl;
+    return info.str();
+}
 std::string to_string(uint32_t ul)
 {
     char tt[20];

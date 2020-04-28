@@ -50,5 +50,5 @@ struct CompareCStrings
         return strcmp(lhs, rhs) < 0;
     }
 };
-
+std::string getResetInfo();
 std::string to_string(uint32_t ul);
