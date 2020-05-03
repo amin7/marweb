@@ -160,7 +160,7 @@ Case Light
                 </div>  
             </form>             
             <div class="w-100"></div>
-            <button class="btn btn-danger col-2 m-1" type="button" onclick="marlin_addCommand(cmd_AutoHome)">Home</button>
+            <button class="btn btn-danger col-4 m-1" type="button" onclick="marlin_addCommand(cmd_AutoHome)">Home</button>
             <div class="row col-sm">
                 <button class="btn btn-warning col-sm m-1" type="button" onclick="marlin_addCommand(cmd_AutoHomeXY)">Home XY</button>
                 <div class="row col-sm">
@@ -170,51 +170,47 @@ Case Light
                 <div class="w-100"></div>
                 <button class="btn btn-lg btn-warning col-sm m-1" type="button" onclick="marlin_addCommand(cmd_AutoHomeZ)">Home Z</button>
             </div>
-            <div class="row col-2">
-                 <button class="btn btn-outline-primary btn-block m-1" id="control_x_position" onclick="marlin_modalMoveAxis('X')"></button>
-                 <button class="btn btn-outline-primary btn-block m-1" id="control_y_position" onclick="marlin_modalMoveAxis('Y')"></button>
-                 <button class="btn btn-outline-primary btn-block m-1" id="control_z_position" onclick="marlin_modalMoveAxis('Z')"></button>                
-            </div>
+            <div class="w-100"></div>
+            <button class="btn btn-outline-primary col-sm m-1" id="control_x_position" onclick="marlin_modalMoveAxis('X')"></button>
+            <button class="btn btn-outline-primary col-sm m-1" id="control_y_position" onclick="marlin_modalMoveAxis('Y')"></button>
+            <button class="btn btn-outline-primary col-sm m-1" id="control_z_position" onclick="marlin_modalMoveAxis('Z')"></button>                
+            <div class="w-100"></div>
+            <button class="btn btn-dark col-4 m-1" onclick="marlin_addCommand(cmd_SetPosition000)" >Set (0) </button>
             <div class="row col-sm">
+                <button class="btn btn-dark col-sm m-1" type="button" onclick="marlin_addCommand(cmd_SetPositionXY0)">Set XY(0)</button>    
                 <div class="row col-sm">
                     <button class="btn btn-dark btn-block m-1" type="button" onclick="marlin_addCommand(cmd_SetPositionX0)">Set X(0)</button>
                     <button class="btn btn-dark btn-block m-1" type="button" onclick="marlin_addCommand(cmd_SetPositionY0)">Set Y(0)</button>
                 </div>
-                <button class="btn btn-dark col-sm m-1" type="button" onclick="marlin_addCommand(cmd_SetPositionXY0)">Set XY(0)</button>
                 <div class="w-100"></div>
                 <button class="btn btn-lg btn-dark col-sm m-1" onclick="marlin_addCommand(cmd_SetPositionZ0)">Set Z(0)</button>
             </div>
-            <button class="btn btn-dark col-2 m-1" onclick="marlin_addCommand(cmd_SetPosition000)" >Set (0) </button>
             <div class="w-100"></div>
-            <button class="btn btn-secondary col-sm m-1" onclick="marlin_addCommand(cmd_DisableSteppers)" >Motors off</button>
-            <button class="btn btn-warning col-3 m-1" onclick="controls_GotoZero(true)" >Goto (0)</button>
-            <button class="btn btn-warning col-3 m-1" onclick="controls_GotoZero(false)" >Goto XY(0)</button>
+            <button class="btn btn-lg btn-secondary btn-block m-1" onclick="marlin_addCommand(cmd_DisableSteppers)" >Motors off</button>
+            <button class="btn btn-warning btn-block m-1" onclick="controls_GotoZero(true)" >Goto (0)</button>
+            <button class="btn btn-warning btn-block m-1" onclick="controls_GotoZero(false)" >Goto XY(0)</button>
             <div class="w-100"></div>
             <button class="btn btn-warning btn-block col-sm m-1" onclick="controls_gotoToPos(config.bed.coner,config.bed.coner)" >goto coner 0:0</button>
             <button class="btn btn-warning btn-block col-sm m-1" onclick="controls_gotoToPos(config.bed.coner,config.bed.size-config.bed.coner)" >goto coner 1:0</button>
+            <div class="w-100"></div>   
             <button class="btn btn-warning btn-block col-sm m-1" onclick="controls_gotoToPos(config.bed.size-config.bed.coner,config.bed.size-config.bed.coner)" >goto coner 0:1</button>
             <button class="btn btn-warning btn-block col-sm m-1" onclick="controls_gotoToPos(config.bed.size-config.bed.coner,config.bed.coner)" >goto coner 1:1</button>
-            
             <div class="w-100"></div>
             <span>&nbsp; </span>
-            <div class="w-100"></div>
-            <div class="row col-sm">
-                <div class="row col-4">
-                    <form class="form-inline col-12">
-                        <input type="number" class="form-control" id="id_ProbeZhop" min="1" max="10" value="2">
-                        <button class="btn btn-info col-sm" type="button" onclick="controls_gotoZHop(document.getElementById('id_ProbeZhop').value)">Z Hop</button>
-                    </form>
-                    <form class="form-inline col-12">
-                        <input type="number" class="form-control" id="id_ProbeDistance" min="-10" max="0" value="-5">
-                        <button class="btn btn-primary col-sm" type="button" onclick="controls_ProbeTarget(document.getElementById('id_ProbeDistance').value)">Probe</button>
-                    </form>
-                </div>
-                <label class="btn btn-secondary col-2 text-center">
-                    <input type="checkbox" onclick="controls_ProbeTargetMultiple(this.checked)"/>
-                    <span>Probe Multiple</span>
-                </label>  
-                <canvas id="id_probeGraph" class="border border-dark m-1" width="500" height="100"></canvas>
-            </div>
+            <div class="w-100"></div>'
+            <form class="form-inline col-sm">
+                <input type="number" class="form-control" id="id_ProbeZhop" min="1" max="10" value="2">
+                <button class="btn btn-info col-sm" type="button" onclick="controls_gotoZHop(document.getElementById('id_ProbeZhop').value)">Z Hop</button>
+            </form>
+            <form class="form-inline col-sm">
+                <input type="number" class="form-control" id="id_ProbeDistance" min="-10" max="0" value="-5">
+                <button class="btn btn-primary col-sm" type="button" onclick="controls_ProbeTarget(document.getElementById('id_ProbeDistance').value)">Probe</button>
+            </form>
+            <label class="btn btn-secondary col-sm text-center">
+                <input type="checkbox" onclick="controls_ProbeTargetMultiple(this.checked)"/>
+                <span>Probe Multiple</span>
+                <span id="id_probeVal"></span>  
+            </label>  
             <div class="w-100"></div>
             <span>&nbsp; </span>
             <div class="w-100"></div>

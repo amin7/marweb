@@ -13,42 +13,11 @@ const cmd_ReportSDPrintStatus ='M27';
 const cmd_LinearMoveIdle='G0';
 const cmd_GetCurrentPosition='M114';
 
-var smoothieProbe = new SmoothieChart({
-    millisPerPixel: 10,
-    maxValueScale: 1.1,
-    minValueScale: 1.1,
-    enableDpiScaling: false,
-    interpolation: 'step',
-    horizontalLines:[ { value: 0, color: '#000000', lineWidth: 1 } ],
-    grid: {
-        fillStyle: '#ffffff',
-        strokeStyle: 'rgba(128,128,128,0.5)',
-        verticalSections: 5.,
-        millisPerLine: 0,
-        borderVisible: false
-    },
-    labels: {
-        fillStyle: '#000000',
-        precision: 1
-    }
-});
-var smoothieProbeSeries = new TimeSeries();
-
 function init_controls_panel() {    
     document.getElementById('control_xy_velocity').value =  config.feedrate.move_xy;
     document.getElementById('control_z_velocity').value =  config.feedrate.move_z;
-    smoothieProbe.addTimeSeries(smoothieProbeSeries, {
-        lineWidth: 2,
-        strokeStyle: '#808080',
-        fillStyle: 'rgba(128,128,128,0.3)'
-    });
-    smoothieProbe.streamTo(document.getElementById("id_probeGraph") );
-    smoothieProbe.stop();
     marlin_addCommand(cmd_GetCurrentPosition);
     marlin_addCommand(cmd_ReportSDPrintStatus);
-    setInterval(function() {
-      smoothieProbeSeries.append(new Date().getTime(), Math.random()-0.5);
-    }, 2000);
 }
 
 
@@ -138,7 +107,7 @@ function controls_ProbeTargetMultiple_callback(responce){
             marlin_processPosition(line,status);
         });
         if((typeof status.position.Z)!='undefined'){
-            smoothieProbeSeries.append(new Date().getTime(), status.position.Z);         
+            id_probeVal.innerHTML= status.position.Z;         
         }
     }
     if(ptm_active){
@@ -154,13 +123,10 @@ function controls_ProbeTargetMultiple_callback(responce){
 function controls_ProbeTargetMultiple(fActive) {
     ptm_active=fActive;
     if(fActive){
-        smoothieProbeSeries.clear();
-        smoothieProbe.start();
         controls_ProbeTargetMultiple_callback();
     }else{
         clear_command_list();
         controls_gotoZHop(config.probe.multiple.delta);
-        smoothieProbe.stop();
     }
 }
 
