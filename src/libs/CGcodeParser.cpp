@@ -1,13 +1,13 @@
 /*
  * CGcodeParser.cpp
  *
- *  Created on: 19 груд. 2019 р.
+ *  Created on: 19 пїЅпїЅпїЅпїЅ. 2019 пїЅ.
  *      Author: ominenko
  */
 
 #include "CGcodeParser.h"
 
-#include "Logs.h"
+#include "logs.h"
 #include <iostream>
 #include <string>
 #include <stdlib.h>

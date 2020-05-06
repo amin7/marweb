@@ -1,6 +1,6 @@
 #define DESTRUCTOR_CLOSES_FILE 1
 #define SPIFFS_CACHE 7
-#include <arduino.h>
+#include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <sdios.h>
 #include <ESP8266WebServer.h>
@@ -8,17 +8,17 @@
 #include <ArduinoJson.h>
 #include <ESP8266HTTPUpdateServer.h>
 
-#include "libs\CWebFileListSD.h"
-#include "libs\CWebServer.h"
-#include "libs\sdcard_ex.h"
-#include "libs\misk.h"
-#include "libs\logs.h"
-#include "libs\StringStream.h"
-#include "libs\CStatus.h"
-#include "libs\CMarlinCon.h"
-#include "libs\CWebMarlinCon.h"
-#include "libs\CProbeArea.h"
-#include "libs\CManageSDControl.h"
+#include "libs/CWebFileListSD.h"
+#include "libs/CWebServer.h"
+#include "libs/sdcard_ex.h"
+#include "libs/misk.h"
+#include "libs/logs.h"
+#include "libs/StringStream.h"
+#include "libs/CStatus.h"
+#include "libs/CMarlinCon.h"
+#include "libs/CWebMarlinCon.h"
+#include "libs/CProbeArea.h"
+#include "libs/CManageSDControl.h"
 
 using namespace sdfat;
 

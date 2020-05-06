@@ -1,7 +1,7 @@
 /*
  * misk.h
  *
- *  Created on: 22 жовт. 2019 р.
+ *  Created on: 22 пїЅпїЅпїЅпїЅ. 2019 пїЅ.
  *      Author: ominenko
  */
 
@@ -9,7 +9,7 @@
 #ifndef UNIT_TEST
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include "FatLib\ostream.h"
+#include "FatLib/ostream.h"
 #include <string>
 
 sdfat::ostream& operator<<(sdfat::ostream &stream, const String &str);

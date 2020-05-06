@@ -1,12 +1,12 @@
 /*
  * sdcard_ex.cpp
  *
- *  Created on: 22 жовт. 2019 р.
+ *  Created on: 22 пїЅпїЅпїЅпїЅ. 2019 пїЅ.
  *      Author: ominenko
  */
 
 #include "sdcard_ex.h"
-#include "fatlib\ArduinoStream.h"
+#include "FatLib/ArduinoStream.h"
 using namespace sdfat;
 
 static uint8_t cidDmp(sdfat::SdFat &sd, ArduinoOutStream &out)
