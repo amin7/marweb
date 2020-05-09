@@ -1,8 +1,11 @@
 eclipse.preferences.version=1
-environment/project/0.910961921.1363900502/PATH/delimiter=;
-environment/project/0.910961921.1363900502/PATH/operation=replace
-environment/project/0.910961921.1363900502/PATH/value=C\:/Program Files (x86)/Common Files/Oracle/Java/javapath;C\:/WINDOWS/system32;C\:/WINDOWS;C\:/WINDOWS/System32/Wbem;C\:/WINDOWS/System32/WindowsPowerShell/v1.0/;C\:/WINDOWS/System32/OpenSSH/;D\:/Program Files/meld/;D\:/Program Files/meld/lib/;C\:/MinGW/bin/;C\:/MinGW/msys/1.0/bin/;C\:/Users/family/AppData/Local/Programs/Python/Python38/Scripts/;C\:/Users/family/AppData/Local/Programs/Python/Python38/;C\:/Users/family/AppData/Local/Microsoft/WindowsApps;D\:/Program Files/Microsoft VS Code/bin${PathDelimiter}${PATH}
-environment/project/0.910961921.1363900502/append=true
-environment/project/0.910961921.1363900502/appendContributed=true
+environment/project/0.910961921/PATH/delimiter=\:
+environment/project/0.910961921/PATH/operation=replace
+environment/project/0.910961921/PATH/value=/home/ominenko/.platformio/penv/bin\:/home/ominenko/.local/bin\:/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/usr/games\:/usr/local/games\:/snap/bin${PathDelimiter}${PATH}
 environment/project/0.910961921/append=true
 environment/project/0.910961921/appendContributed=true
+environment/project/0.910961921.1363900502/PATH/delimiter=\:
+environment/project/0.910961921.1363900502/PATH/operation=replace
+environment/project/0.910961921.1363900502/PATH/value=/home/ominenko/.platformio/penv/bin\:/home/ominenko/.local/bin\:/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/usr/games\:/usr/local/games\:/snap/bin${PathDelimiter}${PATH}
+environment/project/0.910961921.1363900502/append=true
+environment/project/0.910961921.1363900502/appendContributed=true

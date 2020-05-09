@@ -43,6 +43,7 @@ function on_statusUpdate(status){
     <script src="js/fsbrowser.js"></script>
     <script src="js/controls.js"></script>
     <script src="js/engraver.js"></script> 
+    <script src="js/scanwifi.js"></script>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
@@ -54,7 +55,7 @@ function on_statusUpdate(status){
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/firmware">firmware</a>
-        </li>         
+        </li>
     </ul>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -75,6 +76,16 @@ Case Light
             <div class="w-100"></div>
             <button class="btn btn-lg btn-dark btn-block m-1" style="background-color:black; color:white" onclick="marlin_setLightIRGB(0,0,0,0)" >Off</button>
         </div>
+    </div>
+</div>
+<!--
+    refresh_scanwifi
+-->
+<div id="CaseLightPanel" class="card">
+    <div class="card-header"> AP List</div>
+    <button class="btn btn-primary" onclick="refresh_scanwifi() ">scanwifi</button>
+    <div class="card-body">
+        <div id="AP_list" ></div>
     </div>
 </div>
 <!--
@@ -189,13 +200,6 @@ Case Light
             <button class="btn btn-lg btn-secondary btn-block m-1" onclick="marlin_addCommand(cmd_DisableSteppers)" >Motors off</button>
             <button class="btn btn-warning btn-block m-1" onclick="controls_GotoZero(true)" >Goto (0)</button>
             <button class="btn btn-warning btn-block m-1" onclick="controls_GotoZero(false)" >Goto XY(0)</button>
-            <div class="w-100"></div>
-            <button class="btn btn-warning btn-block col-sm m-1" onclick="controls_gotoToPos(config.bed.coner,config.bed.coner)" >goto coner 0:0</button>
-            <button class="btn btn-warning btn-block col-sm m-1" onclick="controls_gotoToPos(config.bed.coner,config.bed.size-config.bed.coner)" >goto coner 1:0</button>
-            <div class="w-100"></div>   
-            <button class="btn btn-warning btn-block col-sm m-1" onclick="controls_gotoToPos(config.bed.size-config.bed.coner,config.bed.size-config.bed.coner)" >goto coner 0:1</button>
-            <button class="btn btn-warning btn-block col-sm m-1" onclick="controls_gotoToPos(config.bed.size-config.bed.coner,config.bed.coner)" >goto coner 1:1</button>
-            <div class="w-100"></div>
             <span>&nbsp; </span>
             <div class="w-100"></div>'
             <form class="form-inline col-sm">
@@ -306,9 +310,14 @@ Engraver
             <div class="w-100"></div>
             <button class="btn btn-warning btn-block m-1" type="button" onclick="engraver_probeStop()" >Clear/Stop</button>
             <input type="number" class="col-md-auto m-1" id="id_ToolChangeZ" min="1" max="200">
-            <button class="btn btn-info col-sm m-1" type="button" onclick="controls_gotoToPos(0,0,document.getElementById('id_ToolChangeZ').value)">ToolChange</button>
-            <button class="btn btn-warning col-sm m-1" type="button" onclick="controls_ProbeTarget(document.getElementById('id_ToolChangeZ').value*-1)">Probe</button>
+            <button class="btn btn-info col-sm m-1" type="button" onclick="controls_gotoToPos(0,0,$('#id_ToolChangeZ').val())">ToolChange</button>
+            <button class="btn btn-warning col-sm m-1" type="button" onclick="controls_ProbeTarget($('#id_ToolChangeZ').val()*-1)">Probe</button>
             <button class="btn btn-dark col-sm m-1" type="button" onclick="marlin_addCommand(cmd_SetPosition000)">Set (0)</button>
+            <div class="w-100"></div>
+            <button class="btn btn-info col-sm m-1" type="button" onclick="marlin_modalMoveAxisStep('X',-$('#id_ProbeAreaSizeX').val())">Goto -sizeX</button>
+            <button class="btn btn-info col-sm m-1" type="button" onclick="marlin_modalMoveAxisStep('X',-$('#id_ProbeAreaSizeY').val())">Goto -sizeY</button>
+            <div class="w-100"></div>
+            <button class="btn btn-warning btn-block m-1" onclick="controls_GotoZero(false)" >Goto XY(0)</button>
         </div>
     </div>
 </div>

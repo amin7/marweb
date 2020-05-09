@@ -1,7 +1,7 @@
 /*
  * log.h
  *
- *  Created on: 30 жовт. 2019 р.
+ *  Created on: 30 пїЅпїЅпїЅпїЅ. 2019 пїЅ.
  *      Author: ominenko
  */
 

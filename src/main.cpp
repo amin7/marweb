@@ -19,6 +19,7 @@
 #include "libs/CWebMarlinCon.h"
 #include "libs/CProbeArea.h"
 #include "libs/CManageSDControl.h"
+#include "libs/wifiHandle.h"
 
 using namespace sdfat;
 
@@ -34,7 +35,7 @@ constexpr auto pin_START_DEFAULT_CFG = D3;
 constexpr auto RXBUFFERSIZE = 1024;
 constexpr auto SERIAL_BAUND = 115200;
 
-constexpr auto DEF_DEVICE_NAME = "WebDAV"; //AP name
+constexpr auto DEF_DEVICE_NAME = "MarWeb"; //AP name
 constexpr auto DEF_WIFI_MODE = WIFI_AP;
 constexpr auto DEF_SSID_NAME = "";
 constexpr auto DEF_WIFI_PWD = "12345678";
@@ -114,28 +115,6 @@ CWebFileListSD FileList(serverWeb, sdFat, sdCnt);
 CWebServer webHandelrs(serverWeb, sdCnt);
 CMarlinEspCmd EspCmd;
 // ------------------------
-
-void get_configs()
-{
-    auto wifi_host_name_ = (String) DEF_DEVICE_NAME;
-    auto wifi_pwd_ = (String) DEF_WIFI_PWD;
-    auto wifi_mode_ = DEF_WIFI_MODE;
-    auto wifi_ssid_ = (String) DEF_SSID_NAME;
-//todo rewrite to use stored data in esp
-    DBG_PRINTLN(F("SPIFFS.open "));
-    auto wifi_conf_spiffs = SPIFFS.open(config_file_spiffs, "r");
-    if (wifi_conf_spiffs)
-    {
-        get_config(wifi_conf_spiffs, wifi_ssid_, wifi_pwd_, wifi_host_name_, wifi_mode_);
-        wifi_conf_spiffs.close();
-    } else
-    {
-        ERR_LOG(F("no wifiConfig"));
-    }
-
-    setup_wifi(wifi_ssid_, wifi_pwd_, wifi_host_name_, wifi_mode_);
-    MDNS.begin(wifi_host_name_.c_str());
-}
 
 void http_about()
 {
@@ -249,10 +228,20 @@ void setupWeb()
             {
                 FileList.handleFileDownload();
             });
+    serverWeb.on("/scanwifi", HTTP_ANY,
+            [&]()
+            {
+    		wifiHandle_sendlist(serverWeb);
+            });
+    serverWeb.on("/connectwifi", HTTP_ANY,
+            [&]()
+            {
+    		wifiHandle_connect(serverWeb);
+            });
 
     serverWeb.onNotFound([&]()
             {
-                webHandelrs.handleFile();
+            webHandelrs.handleFile();
             });
 
 }
@@ -265,8 +254,9 @@ void setup() {
     Serial.begin(SERIAL_BAUND);
     Serial.setRxBufferSize(RXBUFFERSIZE);
     sdCnt.setup();
+   // setup_wifi(DEF_SSID_NAME, DEF_WIFI_PWD, DEF_DEVICE_NAME, DEF_WIFI_MODE);
     SPIFFS.begin();
-    get_configs();
+    MDNS.begin(WiFi.hostname().c_str());
     otaUpdater.setup(&serverWeb, ota_update_path, ota_username, ota_password);
     setupWeb();
     MDNS.addService("http", "tcp", SERVER_PORT_WEB);
@@ -275,6 +265,11 @@ void setup() {
         if (sdCnt.isOwned()) {
             sdCnt.returnSD();
         }
+    });
+
+    EspCmd.addHandler("// action:resetwifi\r", [] {
+        DBG_PRINTLN("resetwifi");
+    	setup_wifi(DEF_SSID_NAME, DEF_WIFI_PWD, DEF_DEVICE_NAME, DEF_WIFI_MODE);
     });
 
     MarlinCon.addListener(WebMarlinCon);
@@ -288,16 +283,17 @@ void setup() {
 #endif
     serverWeb.begin();
     out << F(";servers started") << endl;
+    WiFi.begin();
     //print IP
     out << F("M117 ");
     if (WIFI_AP == WiFi.getMode())
     {
-        out << F("AP ") << WiFi.softAPIP();
+        out << F("AP ") <<WiFi.hostname()<<" "<< WiFi.softAPIP();
     } else
     {
-        out << WiFi.localIP();
+    	 out << F("conn.. ")<<WiFi.SSID();
     }
-    out << ":" << SERVER_PORT_WEB << endl;
+    out << endl;
 }
 
 // ------------------------
@@ -305,5 +301,6 @@ void loop() {
     MDNS.update();
     serverWeb.handleClient();
     MarlinCon.loop();
+    wifiHandle_loop();
 }
 #endif

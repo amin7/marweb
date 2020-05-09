@@ -12,6 +12,7 @@ const cmd_RelativePositioning ='G91';
 const cmd_ReportSDPrintStatus ='M27';
 const cmd_LinearMoveIdle='G0';
 const cmd_GetCurrentPosition='M114';
+const cmd_SetLCDMessage='M117';
 
 function init_controls_panel() {    
     document.getElementById('control_xy_velocity').value =  config.feedrate.move_xy;
@@ -107,7 +108,10 @@ function controls_ProbeTargetMultiple_callback(responce){
             marlin_processPosition(line,status);
         });
         if((typeof status.position.Z)!='undefined'){
-            id_probeVal.innerHTML= status.position.Z;         
+            id_probeVal.innerHTML= status.position.Z;    
+            var command = cmd_SetLCDMessage;
+            command+=" "+status.position.Z;
+            marlin_addCommand(command);
         }
     }
     if(ptm_active){

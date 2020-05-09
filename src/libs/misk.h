@@ -19,8 +19,6 @@ void LED_ON();
 void LED_OFF();
 void blink();
 
-bool setup_wifi(const String &ssid, const String &pwd, const String &host_name, const WiFiMode_t &wifi_mode);
-bool get_config(Stream &config, String &ssid, String &pwd, String &name, WiFiMode_t &WiFiMode);
 String getMimeType(String path);
 void hw_info(Stream &Out);
 void SPIFFS_info(Stream &out_stream);

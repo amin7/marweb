@@ -72,7 +72,7 @@ function engraver_GCodeLevelMod_resp(response){
 }
 function engraver_GCodeLevelMod(filename){
     if(filename!=""){
-        url="/levelmod?file="+filename;
+        url="/levelmod?file="+encodeURI(filename);
         SendGetHttp(url,engraver_GCodeLevelMod_resp,engraver_ResultError);
     }
 }

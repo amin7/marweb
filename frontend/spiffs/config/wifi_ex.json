@@ -1,7 +1,0 @@
-{ 
-"hostname":"WebDAV",
-"ssid":"",
-"pwd":"12345678",
-"mode":2,
-"comment":"mode: WIFI_OFF = 0, WIFI_STA = 1, WIFI_AP = 2, WIFI_AP_STA = 3"
-}

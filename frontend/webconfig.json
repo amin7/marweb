@@ -16,7 +16,6 @@
 	{"entry":"/setStateSDcontrol"				,"inline":"{\"dav\":{\"sdmode\":0}}" ,"type":"application/json"},
 	{"entry":"/setStateSDcontrol?mode=0"			,"inline":"{\"dav\":{\"sdmode\":0}}" ,"type":"application/json"},
 	{"entry":"/setStateSDcontrol?mode=1"			,"inline":"{\"dav\":{\"sdmode\":1}}" ,"type":"application/json"},
-	{"entry":"/setStateSDcontrol?mode=2"			,"inline":"{\"dav\":{\"sdmode\":2}}" ,"type":"application/json"},
 
 	{"entry":"/filelist?path=/"			,"inline":"{\"path\":\"/\",\"files\":[[\"empty/\",1,0],[\"no_files/\",1,0],[\"no_answer/\",1,0],[\"test/\",1,0],[\"file\",0,100]]}" ,"type":"application/json"},
 	{"entry":"/filelist?path=/empty/"			,"inline":"{\"path\":\"/empty/\",\"files\":[]}" ,"type":"application/json"},
@@ -25,7 +24,8 @@
 
 	{"entry":"/gcodeInfo?file=/test/test1"		,"inline":"{\"dimention\":{\"min\":{\"x\":0,\"y\":0,\"z\":0},\"max\":{\"x\":50,\"y\":20,\"z\":2}}}" ,"type":"application/json"},
 	{"entry":"/gcodeInfo?file=/file"		,"inline":"{\"dimention\":{\"max\":{\"x\":30.48,\"y\":71.12,\"z\":25.4},\"min\":{\"x\":0,\"y\":0,\"z\":-0.8128}},\"lineTotal\":150,\"lineProcessed\":150}","type":"application/json"},
-        {"entry":"/levelmod?file=/file"		       ,"inline":"{\"addfiles\":[[\"file_\",0,12323]]}","type":"application/json"},
+    {"entry":"/levelmod?file=/file"		       ,"inline":"{\"addfiles\":[[\"file_\",0,12323]]}","type":"application/json"},
+    {"entry":"/scanwifi"		            ,"inline":"{\"AP_LIST\":[{\"SSID\":\"HP-Setup>71-M277LaserJet\",\"SIGNAL\":\"90\",\"IS_PROTECTED\":\"0\"},{\"SSID\":\"NETGEAR_2GEXT_OFFICE2\",\"SIGNAL\":\"58\",\"IS_PROTECTED\":\"1\"},{\"SSID\":\"NETGEAR_2GEXT_OFFICE\",\"SIGNAL\":\"34\",\"IS_PROTECTED\":\"1\"},{\"SSID\":\"NETGEAR_2GEXT_COULOIR\",\"SIGNAL\":\"18\",\"IS_PROTECTED\":\"1\"},{\"SSID\":\"HP-Print-D3-ColorLaserJetPro\",\"SIGNAL\":\"14\",\"IS_PROTECTED\":\"0\"},{\"SSID\":\"external-wifi\",\"SIGNAL\":\"20\",\"IS_PROTECTED\":\"1\"},{\"SSID\":\"Livebox-4D0F\",\"SIGNAL\":\"24\",\"IS_PROTECTED\":\"1\"},{\"SSID\":\"SFR_2000\",\"SIGNAL\":\"20\",\"IS_PROTECTED\":\"1\"},{\"SSID\":\"SFR_0D90\",\"SIGNAL\":\"26\",\"IS_PROTECTED\":\"1\"},{\"SSID\":\"SFRWiFiFON\",\"SIGNAL\":\"18\",\"IS_PROTECTED\":\"0\"},{\"SSID\":\"SFRWiFiMobile\",\"SIGNAL\":\"18\",\"IS_PROTECTED\":\"1\"},{\"SSID\":\"FreeWifi\",\"SIGNAL\":\"16\",\"IS_PROTECTED\":\"0\"}]}","type":"application/json"},
 {}
 ]
 }

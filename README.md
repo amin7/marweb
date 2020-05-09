@@ -75,6 +75,7 @@ put config.json in fd root folder
 D:\user\workspace\arduinocdt\packages\esp8266\tools\mkspiffs\2.5.0-4-b40a506\mkspiffs.exe  -p 256 -b 8192 -s 1028096 -c spiffs spiffs.bin 
 D:\user\workspace\arduinocdt\packages\esp8266\hardware\esp8266\2.6.2\tools\esptool\esptool.py -c esp8266 -b 921600 -p COM7 write_flash 0x200000 spiffs.bin
 
+ ~/.platformio/packages/tool-mkspiffs/mkspiffs -p 256 -b 8192 -s 1028096 -c spiffs spiffs.bin
 g++ -Wall -g -std=c++11 -DTEST CGcodeParser.cpp -o CGcodeParser 
  
  https://regex101.com/
@@ -93,4 +94,5 @@ web add cmd wait for end previous
 /probe?mode=once&zHop=1&feedRateZ=200&probeDistance=5&feedRateProbe=20&doubleTouch=0
 /probe?mode=area&sizeX=50&sizeY=50&grid=10&levelDelta=1&feedRateXY=200&feedRateProbe=20&doubleTouch=0
 
-
+run -e d1_mini
+run --target upload -e d1_mini
