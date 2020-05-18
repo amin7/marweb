@@ -1,7 +1,7 @@
 /*
  * CMarlinConCMDListener.h
  *
- *  Created on: 23 ñ³÷. 2020 ð.
+ *  Created on: 23 ï¿½ï¿½. 2020 ï¿½.
  *      Author: ominenko
  */
 
@@ -47,6 +47,7 @@ public:
     } te_mode;
     private:
     te_mode m_mode;
+    std::string m_name;
     public:
     CMarlinRun() :
             m_mode(paIdle)
@@ -61,8 +62,20 @@ public:
     {
         m_mode = mode;
     }
+
+    void setMode(te_mode mode, std::string &&name)
+            {
+        m_mode = mode;
+        m_name = std::move(name);
+    }
+    const std::string& getName() const
+    {
+        return m_name;
+    }
+
     void clear()
     {
+        m_name = "";
         m_mode = paIdle;
         CMarlinConCMD_Listener::clear();
     }

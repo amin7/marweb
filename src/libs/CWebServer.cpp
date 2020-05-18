@@ -59,7 +59,7 @@ void CWebServer::handleFile()
     webRetResult(m_server, er_fileNotFound);
 }
 
-void CWebServer::handleProbesGet() {
+void CWebServer::handleProbesResult() {
     if (m_ProbeArea.getMode() != CMarlinRun::paDone) {
         webRetResult(m_server, er_incorrectMode);
         return;
@@ -97,67 +97,74 @@ void CWebServer::handleProbesGet() {
 void CWebServer::handleProbes()
 {
     auto retVal = er_last;
-    do
-    {
+    try {
         if (!m_server.hasArg("mode"))
         {
-            retVal = er_no_parameters;
-            break;
+            throw er_no_parameters;
         }
         const auto newMode = m_server.arg("mode");
         DBG_PRINT("newMode ");
         DBG_PRINTLN(newMode);
-
+        //----------------------
         if (newMode == "stop")
         {
             m_ProbeArea.stop();
             retVal = er_ok;
-            break;
-        }
-
-        if (m_ProbeArea.getMode() == CMarlinRun::paRun)
-        {
-            retVal = er_incorrectMode;
-            break;
-        }
-        if (newMode == "area")
-        {
-            if (!m_server.hasArg("sizeX") ||
-            !m_server.hasArg("sizeY") ||
-            !m_server.hasArg("grid") ||
-            !m_server.hasArg("levelDelta") ||
-            !m_server.hasArg("feedRateXY") ||
-            !m_server.hasArg("feedRateProbe") ||
-            !m_server.hasArg("doubleTouch"))
-            {
-                retVal = er_no_parameters;
-                break;
+        } else {
+            if (m_ProbeArea.getMode() == CMarlinRun::paRun)
+                    {
+                throw er_incorrectMode;
             }
-            const auto sizeX=m_server.arg("sizeX").toInt();
-            const auto sizeY=m_server.arg("sizeY").toInt();
-            const auto grid=m_server.arg("grid") .toInt();
-            const auto levelDelta=m_server.arg("levelDelta") .toDouble();
-            const auto feedRateXY=m_server.arg("feedRateXY") .toInt();
-            const auto feedRateProbe=m_server.arg("feedRateProbe") .toInt();
-            const auto doubleTouch=m_server.arg("doubleTouch").toInt();
-            if (!m_ProbeArea.run(sizeX, sizeY, grid, levelDelta, feedRateXY, feedRateProbe, doubleTouch))
-           {
-                retVal = er_errorResult;
-                break;
-             }
-            retVal = er_ok;
-            break;
-        }
-        if (newMode == "get")
-        {
-            handleProbesGet();
-            return;
-        }
-        else
-        {
-            retVal = er_incorrectMode;
-        }
-    } while (0);
+            //----------------------
+            if (newMode == "area")
+                    {
+                if (!m_server.hasArg("sizeX") ||
+                        !m_server.hasArg("sizeY") ||
+                        !m_server.hasArg("grid") ||
+                        !m_server.hasArg("levelDelta") ||
+                        !m_server.hasArg("feedRateXY") ||
+                        !m_server.hasArg("feedRateProbe") ||
+                        !m_server.hasArg("doubleTouch"))
+                                {
+                    throw er_no_parameters;
+                }
+                const auto sizeX = m_server.arg("sizeX").toInt();
+                const auto sizeY = m_server.arg("sizeY").toInt();
+                const auto grid = m_server.arg("grid").toInt();
+                const auto levelDelta = m_server.arg("levelDelta").toDouble();
+                const auto feedRateXY = m_server.arg("feedRateXY").toInt();
+                const auto feedRateProbe = m_server.arg("feedRateProbe").toInt();
+                const auto doubleTouch = m_server.arg("doubleTouch").toInt();
+                if (!m_ProbeArea.run(sizeX, sizeY, grid, levelDelta, feedRateXY, feedRateProbe, doubleTouch))
+                        {
+                    throw er_errorResult;
+                }
+                retVal = er_ok;
+            } else
+            //----------------------
+            if (newMode == "multiple")
+                    {
+                if (!m_server.hasArg("levelDelta") ||
+                        !m_server.hasArg("feedRateProbe"))
+                                {
+                    throw er_no_parameters;
+                }
+                const auto levelDelta = m_server.arg("levelDelta").toDouble();
+                const auto feedRateProbe = m_server.arg("feedRateProbe").toInt();
+                if (!m_ProbeArea.multiple(levelDelta, feedRateProbe))
+                        {
+                    throw er_errorResult;
+                }
+                retVal = er_ok;
+            }
+            else
+            {
+                throw er_incorrectMode;
+            }
+            }
+} catch(te_ret err) {
+    retVal=err;
+}
     webRetResult(m_server, retVal);
 }
 
@@ -324,7 +331,7 @@ void CWebServer::handleLevelMod()
 
 void CWebServer::getStatus(JsonObject &root) const
 {
-    auto mode = root.createNestedObject("mode");
-    mode["ProbeArea"] = static_cast<unsigned>(m_ProbeArea.getMode());
+    auto mode = root.createNestedObject("run");
+    mode["mode"] = static_cast<unsigned>(m_ProbeArea.getMode());
+    mode["name"] = m_ProbeArea.getName().c_str();
 }
-;

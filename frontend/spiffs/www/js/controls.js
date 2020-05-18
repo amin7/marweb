@@ -13,6 +13,7 @@ const cmd_ReportSDPrintStatus ='M27';
 const cmd_LinearMoveIdle='G0';
 const cmd_GetCurrentPosition='M114';
 const cmd_SetLCDMessage='M117';
+const cmd_cancelShutdown='M85 S0';
 
 function init_controls_panel() {    
     document.getElementById('control_xy_velocity').value =  config.feedrate.move_xy;
@@ -100,41 +101,18 @@ function control_build_macro_button(item) {
     return content;
 }
 
-var ptm_active=false;
-function controls_ProbeTargetMultiple_callback(responce){
-    if((typeof responce)!='undefined'){
-        var status={};
-        responce.split("\n").forEach(function(line){
-            marlin_processPosition(line,status);
-        });
-        if((typeof status.position.Z)!='undefined'){
-            id_probeVal.innerHTML= status.position.Z;    
-            var command = cmd_SetLCDMessage;
-            command+=" "+status.position.Z;
-            marlin_addCommand(command);
-        }
-    }
-    if(ptm_active){
-        controls_gotoZHop(config.probe.multiple.delta);
-        var feedRateProbe=document.getElementById('id_ProbeFeed').value;
-        var command = cmd_RelativePositioning;
-        command+= "\nG38.2 F" +parseInt(feedRateProbe)+ " Z" + (-2 * config.probe.multiple.delta);
-        marlin_addCommand(command);
-        marlin_addCommand(cmd_GetCurrentPosition,controls_ProbeTargetMultiple_callback);
-    }
-}
-
 function controls_ProbeTargetMultiple(fActive) {
-    ptm_active=fActive;
     if(fActive){
-        controls_ProbeTargetMultiple_callback();
+        url="/probe?mode=multiple";
+        url+="&levelDelta="+parseFloat($('#id_levelDelta').val());
+        url+="&feedRateProbe="+parseInt($('#id_ProbeFeed').val());
+        url+="&doubleTouch=0";
+        SendGetHttp(url,on_httpStatusResponce,engraver_ResultError);
     }else{
-        clear_command_list();
-        controls_gotoZHop(config.probe.multiple.delta);
+        engraver_probeStop();
     }
 }
 
-//-----------
 function controls_ProbeTargetMultiple_callback_hit(response){
     if(response.indexOf("\nError:Failed to reach target")==-1){ //hit
         const feedRateProbe=parseInt(document.getElementById('id_ProbeFeed').value)/2;

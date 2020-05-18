@@ -8,6 +8,7 @@
 #include "CProbeArea.h"
 #include "logs.h"
 #include <sstream>
+#include <iomanip>
 using namespace std;
 
 void CProbeArea::stop()
@@ -86,7 +87,7 @@ bool CProbeArea::positionCallback(string &result)
                             setMode(paError);
                             return false;
                         }
-                        return addCmd("M114",
+                        return addCmd(gcode_GetCurrentPosition,
                                 [&](string &result) -> bool
                                 {
                                     return positionCallback(result);
@@ -107,6 +108,45 @@ bool CProbeArea::positionCallback(string &result)
     setMode(paError);
     return false;
 }
+
+bool CProbeArea::multipleCB(string &result)
+        {
+    do
+    {
+        const auto zval = getZ(result);
+        if (isnan(zval))
+                {
+            break;
+        }
+        ostringstream os_cmd;
+        os_cmd << "M117 delta:" << std::fixed << std::setprecision(2) << zval << "\n";
+        os_cmd << "G0 F" << m_feedRateProbe * 2 << " Z" << m_levelDelta << "\n";
+        os_cmd << "G38.2 F" << m_feedRateProbe << " Z" << m_levelDelta * -2;
+        if (addCmd(os_cmd.str(),
+                [&](string &result) -> bool
+                {
+                    if (isErrorResult(result))
+                            {
+                        stop();
+                        setMode(paError);
+                        return false;
+                    }
+                    return addCmd(gcode_GetCurrentPosition,
+                            [&](string &result) -> bool
+                            {
+                                return multipleCB(result);
+                            });
+                }))
+        {
+            return true;
+        }
+
+    } while (0);
+    stop();
+    setMode(paError);
+    return false;
+}
+
 
 bool CProbeArea::run(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double levelDelta, uint16_t feedRateXY, uint16_t feedRateProbe, bool doubleTouch)
 {
@@ -134,7 +174,6 @@ bool CProbeArea::run(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double level
     os_cmd << "G0 F" << m_feedRateProbe * 2 << " Z" << probe_first_distance << "\n";
     os_cmd << gcode_EnableSteppers << "\n";
     os_cmd << "G38.2 F" << m_feedRateProbe << " Z" << probe_first_distance * -2;
-
     if (!addCmd(os_cmd.str(),
             [&](string &result) -> bool
             {
@@ -152,6 +191,31 @@ bool CProbeArea::run(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double level
             }
     )) //relative pos    +mm    unit
     {
+        return false;
+    }
+    setMode(paRun);
+    return true;
+}
+
+bool CProbeArea::multiple(double levelDelta, uint16_t feedRateProbe) {
+    if (getMode() == paRun)
+            {
+        return false; //incorrect mode
+    }
+    clear();
+
+    m_levelDelta = levelDelta;
+    m_feedRateProbe = feedRateProbe;
+//first
+    ostringstream os_cmd;
+    os_cmd << beg_gcode << "\n";
+    os_cmd << "G21\nG91\n";
+    os_cmd << gcode_GetCurrentPosition;
+    if (!addCmd(os_cmd.str(),
+    [&](string &result) -> bool
+    {
+        return multipleCB(result);
+    })) {
         return false;
     }
     setMode(paRun);

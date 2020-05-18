@@ -209,6 +209,11 @@ void setupWeb()
             {
                 webHandelrs.handleProbes();
             });
+    serverWeb.on("/probeResult", HTTP_ANY,
+            [&]()
+            {
+                webHandelrs.handleProbesResult();
+            });
     serverWeb.on("/levelmod", HTTP_ANY,
             [&]()
             {

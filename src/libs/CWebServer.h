@@ -1,7 +1,7 @@
 /*
  * FSBrowser.h
  *
- *  Created on: 24 жовт. 2019 р.
+ *  Created on: 24 пїЅпїЅпїЅпїЅ. 2019 пїЅ.
  *      Author: ominenko
  */
 
@@ -20,7 +20,6 @@ class CWebServer: public CStatus {
     bool handleFileRead(const String &path);
     public:
     CProbeArea m_ProbeArea;
-    void handleProbesGet();
   CWebServer(ESP8266WebServer &server_, CManageSDControl &sdCnt) :
       m_server(server_), m_sdCnt(sdCnt)
     {
@@ -28,6 +27,7 @@ class CWebServer: public CStatus {
     ;
     void handleFile();
     void handleProbes();
+    void handleProbesResult();
     void handleGetGCodeInfo();
     void handleLevelMod();
     void getStatus(JsonObject &root) const override;

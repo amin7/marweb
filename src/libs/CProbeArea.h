@@ -25,11 +25,13 @@ class CProbeArea: public CMarlinRun {
     static constexpr auto end_gcode = "G91\nG0 F300 Z2";
     static constexpr auto end_msg_done = "M150 P255 U255\nM117 probing done";
     static constexpr auto end_msg_stop = "M150 P255 R255\nM117 probing stop";
+    static constexpr auto gcode_GetCurrentPosition = "M114";
     double m_levelDelta;
     uint16_t m_feedRateXY;
     uint16_t m_feedRateProbe;
     CProbeAreaGenerator_line m_AreaGenerator;
     bool positionCallback(std::string &result);
+    bool multipleCB(std::string &result);
     static double getZ(const std::string &result);
 public:
     const CProbeAreaGenerator& getAreaGenerator() const
@@ -39,6 +41,7 @@ public:
     void stop();
     static bool isErrorResult(const std::string &result);
     bool run(uint16_t sizeX, uint16_t sizeY, uint16_t grid, double levelDelta, uint16_t feedRateXY, uint16_t feedRateProbe, bool doubleTouch);
+    bool multiple(double levelDelta, uint16_t feedRateProbe);
 #ifdef UNIT_TEST
     FRIEND_TEST(CProbeAreaTest,elements);
 #endif

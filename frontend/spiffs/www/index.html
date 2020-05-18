@@ -59,6 +59,7 @@ function on_statusUpdate(status){
     </ul>
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
+            <button class="btn btn-lg btn-success" id="id_cancel_InactivityShutdown" onclick="marlin_addCommand(cmd_cancelShutdown)" >cancel Shutdown</button>  
             <button class="btn btn-lg btn-danger" id="emergency_off" onclick="emergency_off()" ></button>                
             <button class="btn btn-lg btn-danger" id=power_off onclick="power_off()"></button>
         </li>
@@ -239,16 +240,10 @@ SD files
 -->
 <div id="files" class="card">
     <div class="card-header"> 
-        <ul class="list-group list-group-horizontal">
-            <li  class="list-group-item ml-auto">
-                <button id="SDcontrol_esp" class="btn btn-outline-primary" onclick="setStateSDcontrol(SDcontrolMode_esp)" >Esp</button>
-                <button id="SDcontrol_marlin" class="btn btn-outline-primary" onclick="setStateSDcontrol(SDcontrolMode_marlin)" >Marlin</button>
-            </li>
-        </ul>
-    </div>   
-    <div class="card-body"> 
         <div class="row">
             <div class="col-md-auto">
+                <button id="SDcontrol_esp" class="btn btn-outline-primary m-1" onclick="setStateSDcontrol(SDcontrolMode_esp)" >Esp</button>
+                <button id="SDcontrol_marlin" class="btn btn-outline-primary m-1" onclick="setStateSDcontrol(SDcontrolMode_marlin)" >Marlin</button>
                 <input type="file" onchange="fsbrowser_impl.UploadFile(this.files)" accept=".gcode">
                 <button class="btn btn-warning m-1" onclick="fsbrowser_impl.mkdir()">MkDir</button>
             </div>
@@ -257,6 +252,8 @@ SD files
                 <div id="id_fsbrowser_navbar" class="row col-sm m-1"></div>
             </div>
         </div>
+    </div>   
+    <div class="card-body"> 
         <div id="id_fsbrowser_placeholder"></div>
     </div>
 </div>
