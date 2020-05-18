@@ -228,22 +228,25 @@ void CWebServer::handleGetGCodeInfo()
         }
     }
     gcode.close();
-    StaticJsonDocument < 500 > gcodeInfo;
-    auto root = gcodeInfo.to<JsonObject>();
-    root["file"] = fileName.c_str();
-    auto json_dimention = root.createNestedObject("dimention");
-    auto json_dimention_max = json_dimention.createNestedObject("max");
-    auto json_dimention_min = json_dimention.createNestedObject("min");
-    json_dimention_max["x"] = info.getMax().getX();
-    json_dimention_max["y"] = info.getMax().getY();
-    json_dimention_max["z"] = info.getMax().getZ();
-    json_dimention_min["x"] = info.getMin().getX();
-    json_dimention_min["y"] = info.getMin().getY();
-    json_dimention_min["z"] = info.getMin().getZ();
-    root["lineTotal"] = parser.getLineTotal();
-    root["lineProcessed"] = parser.getLineProcessed();
-
-    m_server.send(200, "application/json", gcodeInfo.as<String>());
+    std::ostringstream gcodeInfo;
+    gcodeInfo << "{";
+    gcodeInfo << "\"file\":" << fileName;
+    gcodeInfo << ",\"dimention\":{";
+    gcodeInfo << "\"max\":{";
+    gcodeInfo << "\"x\":" << info.getMax().getX();
+    gcodeInfo << ",\"y\":" << info.getMax().getY();
+    gcodeInfo << ",\"z\":" << info.getMax().getZ();
+    gcodeInfo << "}"; //max
+    gcodeInfo << ",\"min\":{";
+    gcodeInfo << "\"x\":" << info.getMin().getX();
+    gcodeInfo << ",\"y\":" << info.getMin().getY();
+    gcodeInfo << ",\"z\":" << info.getMin().getZ();
+    gcodeInfo << "}"; //min
+    gcodeInfo << "}"; //dimention
+    gcodeInfo << ",\"lineTotal\":" << parser.getLineTotal();
+    gcodeInfo << ",\"lineProcessed\":" << parser.getLineProcessed();
+    gcodeInfo << "}";
+    m_server.send(200, "application/json", gcodeInfo.str().c_str());
 }
 
 void CWebServer::handleLevelMod()
@@ -329,9 +332,10 @@ void CWebServer::handleLevelMod()
     m_server.send(200, "application/json", fileList.c_str());
 }
 
-void CWebServer::getStatus(JsonObject &root) const
+void CWebServer::getStatus(std::ostream &root) const
 {
-    auto mode = root.createNestedObject("run");
-    mode["mode"] = static_cast<unsigned>(m_ProbeArea.getMode());
-    mode["name"] = m_ProbeArea.getName().c_str();
+    root << "\"run\":{";
+    root << "\"mode\":" << static_cast<unsigned>(m_ProbeArea.getMode());
+    root << ",\"name\":\"" << m_ProbeArea.getName() << "\"";
+    root << "}";
 }

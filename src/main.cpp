@@ -5,7 +5,7 @@
 #include <sdios.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
-#include <ArduinoJson.h>
+#include <sstream>
 #include <ESP8266HTTPUpdateServer.h>
 
 #include "libs/CWebFileListSD.h"
@@ -105,9 +105,9 @@ class CManageSDControl_impl: public CManageSDControl, public CStatus {
     }
 public:
 
-  void getStatus(JsonObject &root) const override
+    void getStatus(std::ostream &root) const override
   {
-        root["sdmode"] = static_cast<unsigned>(isOwned());
+        root << "\"sdmode\":" << static_cast<unsigned>(isOwned());
   }
 } sdCnt;
 
@@ -161,16 +161,14 @@ void http_status() {
     serverWeb.sendHeader("Content-Type", "application/json", true);
     serverWeb.sendHeader("Cache-Control", "no-cache");
     //---------------
-    StaticJsonDocument<500> status;
-    auto object = status.to<JsonObject>();
-    auto json_dav = object.createNestedObject("dav");
-    sdCnt.getStatus(json_dav);
-    auto json_ProbeArea = object.createNestedObject("probe");
-    webHandelrs.getStatus(json_ProbeArea);
-    serverWeb.sendContent(status.as<String>());
+    std::ostringstream status;
+    status << "{";
+    sdCnt.getStatus(status);
+    status << ",";
+    webHandelrs.getStatus(status);
+    status << "}";
+    serverWeb.sendContent(status.str().c_str());
     serverWeb.sendContent("");
-    DBG_PRINT("memoryUsage ");
-    DBG_PRINTLN(status.memoryUsage());
 
 }
 

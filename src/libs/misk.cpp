@@ -7,8 +7,6 @@
 #include "misk.h"
 #include "logs.h"
 #include <FS.h>
-#define ARDUINOJSON_ENABLE_ARDUINO_STRING 1
-#include <ArduinoJson.h>
 #include "FatLib/ArduinoStream.h"
 #include <stdio.h>
 #include <sstream>

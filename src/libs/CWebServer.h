@@ -30,5 +30,5 @@ class CWebServer: public CStatus {
     void handleProbesResult();
     void handleGetGCodeInfo();
     void handleLevelMod();
-    void getStatus(JsonObject &root) const override;
+    void getStatus(std::ostream &root) const override;
 };

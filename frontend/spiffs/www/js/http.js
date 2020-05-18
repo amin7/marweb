@@ -80,6 +80,6 @@ function on_httpStatusResponce(responce){
     var res = JSON.parse(responce);
     console.log(res);
     var status={};
-    status.stateSDcontrol=res.dav.sdmode;
+    status.stateSDcontrol=res.sdmode;
     on_statusUpdate(status);
 }

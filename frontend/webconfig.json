@@ -13,9 +13,9 @@
 	{"entry":"/command?commandText=G91"				,"inline":"ok" ,	"type":"text/plain"},
 	{"entry":"/config/macrocfg.json"			,"file":"/spiffs/config/macrocfg.json" ,"type":"application/json"},
 	{"entry":"/config/macro_eng.json"			,"file":"/spiffs/config/macro_eng.json" ,"type":"application/json"},
-	{"entry":"/setStateSDcontrol"				,"inline":"{\"dav\":{\"sdmode\":0}}" ,"type":"application/json"},
-	{"entry":"/setStateSDcontrol?mode=0"			,"inline":"{\"dav\":{\"sdmode\":0}}" ,"type":"application/json"},
-	{"entry":"/setStateSDcontrol?mode=1"			,"inline":"{\"dav\":{\"sdmode\":1}}" ,"type":"application/json"},
+	{"entry":"/setStateSDcontrol"				,"inline":"{\"sdmode\":0,\"run\":{\"mode\":0,\"name\":\"\"}}","type":"application/json"},
+	{"entry":"/setStateSDcontrol?mode=0"			,"inline":"{\"sdmode\":0,\"run\":{\"mode\":0,\"name\":\"\"}}" ,"type":"application/json"},
+	{"entry":"/setStateSDcontrol?mode=1"			,"inline":"{\"sdmode\":1,\"run\":{\"mode\":0,\"name\":\"\"}}" ,"type":"application/json"},
 
 	{"entry":"/filelist?path=/"			,"inline":"{\"path\":\"/\",\"files\":[[\"empty/\",1,0],[\"no_files/\",1,0],[\"no_answer/\",1,0],[\"test/\",1,0],[\"file\",0,100]]}" ,"type":"application/json"},
 	{"entry":"/filelist?path=/empty/"			,"inline":"{\"path\":\"/empty/\",\"files\":[]}" ,"type":"application/json"},
